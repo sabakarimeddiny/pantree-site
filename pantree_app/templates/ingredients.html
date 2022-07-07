@@ -1,0 +1,15 @@
+{% load static %}
+<link rel="stylesheet" href="{% static '/css/style.css' %}">
+
+<h1>
+    welcome to pantree
+</h1>
+<p>
+    enter a comma-separated list of ingredients
+</p>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Submit">
+</form>
