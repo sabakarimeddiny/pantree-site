@@ -1,19 +1,18 @@
 form {
-    display:flex;
-    justify-content: center;
+    display: table;
+    /* justify-content: center; */
+    text-align: center;
+    margin: 0 auto;
+  }
+
+label { display: table-cell;}
+
+input { display: table-cell;}
+
+h1 { text-align:center; }
+h4 { text-align:center; }
+  
+p {
+    display: table-row;  
     text-align: center;
   }
-  
-  h1 {
-    text-align:center;
-  }
-  
-  p {
-    text-align:center;
-  }
-  
-  /* body {
-    background-image: url("pic.jpeg");
-    opacity: 0.1;
-    background-color: #cccccc;
-   } */

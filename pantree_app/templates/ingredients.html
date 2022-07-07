@@ -4,12 +4,24 @@
 <h1>
     welcome to pantree
 </h1>
-<p>
+<h4>
     enter a comma-separated list of ingredients
-</p>
+</h4>
+<br>
 
 <form method="post">
     {% csrf_token %}
-    {{ form }}
-    <input type="submit" value="Submit">
+    <p>
+        <label> {{ form.ingredients.label}}  </label> &nbsp;
+        {{ form.ingredients }}
+    </p>
+    <p>
+        <label> {{ form.max_missing_ings.label}}  </label> &nbsp;
+        {{ form.max_missing_ings }}
+    </p>
+    <br>
+    <p>
+        <label> </label>
+        <input type="submit" value="Submit">
+    </p>
 </form>

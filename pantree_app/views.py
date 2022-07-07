@@ -13,9 +13,10 @@ def get_ingredients(request):
         # check whether it's valid:
         if form.is_valid():
             raw = form.cleaned_data.get('ingredients')
+            max_missing_ings = form.cleaned_data.get('max_missing_ings')
             sep = [x.strip() for x in raw.split(',')]
             p = panTree(sep, '/Users/sabakarimeddiny/Documents/pantree-site/pantree_app/src/data/bank.json')
-            p.process()
+            p.process(max_missing_ings=max_missing_ings)
             return result(request, p.rank)
         # render(request, 'thanks.html')
 
