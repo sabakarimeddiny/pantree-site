@@ -1,4 +1,5 @@
 # from django.http import HttpResponseRedirect
+import os
 from django.shortcuts import render
 from .src.pantree.panTree import panTree
 
@@ -15,7 +16,9 @@ def get_ingredients(request):
             raw = form.cleaned_data.get('ingredients')
             max_missing_ings = form.cleaned_data.get('max_missing_ings')
             sep = [x.strip() for x in raw.split(',')]
-            p = panTree(sep, '/Users/sabakarimeddiny/Documents/pantree-site/pantree_app/src/data/bank.json')
+            p = panTree(sep, os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                                          'src',
+                                          'data', 'bank.json'))
             p.process(max_missing_ings=max_missing_ings)
             return result(request, p.rank)
         # render(request, 'thanks.html')
