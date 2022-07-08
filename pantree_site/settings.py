@@ -26,7 +26,9 @@ SECRET_KEY = 'django-insecure-r#v&@9v_6*6h7gp++8ort$fkr(6ft+qeo+2-xq3d4qj7xj@fzt
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['django-env.eba-mmpygypa.us-west-2.elasticbeanstalk.com',
+ALLOWED_HOSTS = ['Pantree-env-3.eba-encwvp4m.us-east-1.elasticbeanstalk.com',
+                 'www.pantree.me',
+                 '172.31.39.227',
                  '127.0.0.1']
 
 
