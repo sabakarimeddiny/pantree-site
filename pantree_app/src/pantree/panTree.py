@@ -1,3 +1,4 @@
+import os
 import pickle
 from scipy.sparse import dok_matrix
 import scipy.sparse
@@ -23,11 +24,11 @@ class panTree:
         self.rank = None
         self.bank = recipeBank()
         if pickled_recipeBank != '':
-            with open(pickled_recipeBank + '_matrix.p', 'rb') as f:
+            with open(os.path.join(pickled_recipeBank, 'matrix.p'), 'rb') as f:
                 self.bank.data = pickle.load(f)
-            with open(pickled_recipeBank + '_urls.p', 'rb') as f:
+            with open(os.path.join(pickled_recipeBank, 'urls.p'), 'rb') as f:
                 self.bank.urls = pickle.load(f)
-            with open(pickled_recipeBank + '_ingredients.p', 'rb') as f:
+            with open(os.path.join(pickled_recipeBank, 'ingredients.p'), 'rb') as f:
                 self.bank.ingredients = pickle.load(f)
         else:
             self.bank = recipeBank(recipeBank_json)
