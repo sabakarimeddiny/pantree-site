@@ -2,7 +2,7 @@ import re
 import requests
 from bs4 import BeautifulSoup
 from .domain import Domain
-from .recipe import Recipe
+from ..recipe import Recipe
 
 class NYT(Domain):
 

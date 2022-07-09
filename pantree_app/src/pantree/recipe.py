@@ -4,8 +4,8 @@ from scipy.sparse import dok_matrix
 import pickle
 import json
 
-from .. import tree
-from .. import common
+from . import tree
+from . import common
 
 class Recipe:
 
@@ -35,13 +35,17 @@ class Recipe:
 
 class recipeBank:
 
-    def __init__(self, json_recipe_bank):
-        with open(json_recipe_bank) as json_file:
-            self.recipes = json.load(json_file)
-            xss = list(self.recipes.values())
-            self.ingredients = sorted(set([x for xs in xss for x in xs]))
-            self.urls = sorted(set(list(self.recipes.keys())))
+    def __init__(self, json_recipe_bank = ''):
+        if json_recipe_bank == '':
             self.data = None
+            self.urls = None
+        else:
+            with open(json_recipe_bank) as json_file:
+                self.recipes = json.load(json_file)
+                xss = list(self.recipes.values())
+                self.ingredients = sorted(set([x for xs in xss for x in xs]))
+                self.urls = sorted(set(list(self.recipes.keys())))
+                self.data = None
     
     def make_sparse_matrix(self):
         self.data = dok_matrix((len(self.ingredients), len(self.urls)), dtype=np.int8)
@@ -57,8 +61,12 @@ class recipeBank:
         self.urls = urls
     
     def save(self, fname):
-        with open(fname, 'wb') as f:
-            pickle.dump(self, f)
+        with open(fname + '_matrix.p', 'wb') as f:
+            pickle.dump(self.data, f)
+        with open(fname + '_urls.p', 'wb') as f:
+            pickle.dump(self.urls, f)
+        with open(fname + '_ingredients.p', 'wb') as f:
+            pickle.dump(self.ingredients, f)
     
 
 
