@@ -17,7 +17,6 @@ class panTree:
         for x in COMMON_INGS:
             ingredient_list.add(x)
         self.ingredient_list = [tree.find_ingredient(x) for x in ingredient_list]
-        # self.ingredient_list = list(ingredient_list)
         self.data = None
         self.similarity = None
         self.difference = None
