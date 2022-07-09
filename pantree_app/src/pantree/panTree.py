@@ -1,3 +1,4 @@
+import pickle
 from scipy.sparse import dok_matrix
 import scipy.sparse
 import numpy as np
@@ -12,7 +13,7 @@ COMMON_INGS = []#['water', 'salt', 'kosher salt']
 
 class panTree:
 
-    def __init__(self, ingredient_list = [], recipeBank_json = ''):
+    def __init__(self, ingredient_list = [], pickled_recipeBank = '', recipeBank_json = ''):
         ingredient_list = set(ingredient_list)
         for x in COMMON_INGS:
             ingredient_list.add(x)
@@ -22,8 +23,12 @@ class panTree:
         self.similarity = None
         self.difference = None
         self.rank = None
-        self.bank = recipeBank(recipeBank_json)
-        self.bank.make_sparse_matrix()
+        if pickled_recipeBank != '':
+            with open(pickled_recipeBank, 'rb') as f:
+                self.bank = pickle.load(f)
+        else:
+            self.bank = recipeBank(recipeBank_json)
+            self.bank.make_sparse_matrix()
         
     def vectorize_ingredient_list(self):
         self.data = dok_matrix((1,len(self.bank.ingredients)), dtype=np.int8)
