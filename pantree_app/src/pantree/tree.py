@@ -6,6 +6,8 @@ import pandas as pd
 import nltk
 from nltk.tokenize import word_tokenize
 from nltk.corpus import wordnet as wn
+
+nltk.data.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'data', 'nltk_data'))
 # from transformers import pipeline
 # from transformers import AutoTokenizer, AutoModelForTokenClassification
 
