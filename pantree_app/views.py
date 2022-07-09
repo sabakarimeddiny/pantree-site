@@ -18,7 +18,7 @@ def get_ingredients(request):
             sep = [x.strip() for x in raw.split(',')]
             p = panTree(sep, pickled_recipeBank = os.path.join(os.path.dirname(os.path.abspath(__file__)),
                                                                'src',
-                                                               'data', 'bank.p'))
+                                                               'data', 'bank'))
             p.process(max_missing_ings=max_missing_ings)
             return result(request, p.rank)
         # render(request, 'thanks.html')

@@ -3,8 +3,7 @@ from scipy.sparse import dok_matrix
 import scipy.sparse
 import numpy as np
 
-from .domains.recipe import recipeBank
-
+from .recipe import recipeBank
 from . import common
 from . import tree
 
@@ -23,9 +22,14 @@ class panTree:
         self.similarity = None
         self.difference = None
         self.rank = None
+        self.bank = recipeBank()
         if pickled_recipeBank != '':
-            with open(pickled_recipeBank, 'rb') as f:
-                self.bank = pickle.load(f)
+            with open(pickled_recipeBank + '_matrix.p', 'rb') as f:
+                self.bank.data = pickle.load(f)
+            with open(pickled_recipeBank + '_urls.p', 'rb') as f:
+                self.bank.urls = pickle.load(f)
+            with open(pickled_recipeBank + '_ingredients.p', 'rb') as f:
+                self.bank.ingredients = pickle.load(f)
         else:
             self.bank = recipeBank(recipeBank_json)
             self.bank.make_sparse_matrix()
