@@ -1,6 +1,7 @@
 import re
 import numpy as np
 from scipy.sparse import dok_matrix
+import pickle
 import json
 
 from .. import tree
@@ -54,4 +55,12 @@ class recipeBank:
             i+=1
             urls.append(k)
         self.urls = urls
+    
+    def save(self, fname):
+        with open(fname, 'wb') as f:
+            pickle.dump(self, f)
+    
+
+
+    
         
