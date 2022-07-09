@@ -5,6 +5,7 @@ import numpy as np
 from .domains.recipe import recipeBank
 
 from . import common
+from . import tree
 
 
 COMMON_INGS = []#['water', 'salt', 'kosher salt']
@@ -15,7 +16,8 @@ class panTree:
         ingredient_list = set(ingredient_list)
         for x in COMMON_INGS:
             ingredient_list.add(x)
-        self.ingredient_list = list(ingredient_list)
+        self.ingredient_list = [tree.find_ingredient(x) for x in ingredient_list]
+        # self.ingredient_list = list(ingredient_list)
         self.data = None
         self.similarity = None
         self.difference = None
