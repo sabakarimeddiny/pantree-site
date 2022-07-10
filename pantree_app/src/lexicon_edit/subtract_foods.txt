@@ -15,7 +15,10 @@ garnish
 slice
 garlic_clove
 clove_garlic
+lemon_rind
+orange_rind
 rind
 wedge
 split
 rock
+cob
