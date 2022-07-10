@@ -1,3 +1,4 @@
+import os
 import re
 import numpy as np
 from scipy.sparse import dok_matrix
@@ -61,11 +62,11 @@ class recipeBank:
         self.urls = urls
     
     def save(self, fname):
-        with open(fname + '_matrix.p', 'wb') as f:
+        with open(os.path.join(fname, 'matrix.p'), 'wb') as f:
             pickle.dump(self.data, f)
-        with open(fname + '_urls.p', 'wb') as f:
+        with open(os.path.join(fname, 'urls.p'), 'wb') as f:
             pickle.dump(self.urls, f)
-        with open(fname + '_ingredients.p', 'wb') as f:
+        with open(os.path.join(fname, 'ingredients.p'), 'wb') as f:
             pickle.dump(self.ingredients, f)
     
 
