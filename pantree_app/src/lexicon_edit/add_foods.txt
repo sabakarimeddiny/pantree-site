@@ -12,3 +12,8 @@ baking_powder
 baking_soda
 baby_spinach
 baby_arugula
+mirin
+daikon
+ponzu
+yuzu
+ube
