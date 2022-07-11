@@ -45,7 +45,7 @@ lm = nltk.stem.wordnet.WordNetLemmatizer()
 def is_food(word):
     if word in ADD_FOODS:
         return 1
-    if word in SUBTRACT_FOODS:
+    elif word in SUBTRACT_FOODS:
         return 0
     syns = wn.synsets(str(word), pos = wn.NOUN)
     for syn in syns:
