@@ -13,14 +13,19 @@ COMMON_INGS = []#['water', 'salt', 'kosher salt']
 
 class panTree:
 
-    def __init__(self, ingredient_list = [], pickled_recipeBank = '', recipeBank_json = ''):
+    def __init__(self, ingredient_list = [], must_have_list = [], pickled_recipeBank = '', recipeBank_json = ''):
         ingredient_list = set(ingredient_list)
+        must_have_list = set(must_have_list)
         for x in COMMON_INGS:
             ingredient_list.add(x)
+        for x in must_have_list:
+            ingredient_list.add(x)
         self.ingredient_list = [tree.find_ingredient(x) for x in ingredient_list]
+        self.must_have_list = [tree.find_ingredient(x) for x in must_have_list]
         self.data = None
         self.similarity = None
         self.difference = None
+        self.must_haves = None
         self.rank = None
         self.bank = recipeBank()
         if pickled_recipeBank != '':
@@ -41,11 +46,21 @@ class panTree:
         for j in one_hot_indices:
             self.data[0, j] = 1
 
+        self.must_haves = dok_matrix((1,len(self.bank.ingredients)), dtype=np.int8)
+        one_hot = np.array(common.vectorize(self.must_have_list, self.bank.ingredients))
+        one_hot_indices = np.where(one_hot == 1)
+        for j in one_hot_indices:
+            self.must_haves[0, j] = 1
+
     def calculate_difference(self):
         self.difference = np.zeros(self.bank.data.shape[1])
         for k, v in self.bank.data.items():
             if v == 1 and self.data[0,k[0]] == 0:
                 self.difference[k[1]] += 1
+
+    def calculate_must_haves(self):
+        must_have_norm = sum(np.array(self.must_haves.todense()).flatten())
+        self.must_have_mask = np.array((self.must_haves.tocsc()*self.bank.data.tocsc()).todok().todense()).flatten()/must_have_norm == 1
 
     def calculate_similarity(self):
         per_url_norm = np.array(scipy.sparse.linalg.norm(self.bank.data,axis=0)).flatten()
@@ -53,13 +68,19 @@ class panTree:
         self.similarity = np.array((self.data.tocsc()*self.bank.data.tocsc()).todok().todense()).flatten()/per_url_norm/ing_norm
     
     def rank_urls(self, max_missing_ings = np.inf):
+
         mask = np.isfinite(self.similarity)
         self.difference = np.array(self.difference)[mask]
+        self.must_have_mask = np.array(self.must_have_mask)[mask]
         self.similarity = np.array(self.similarity)[mask]
         self.bank.urls = np.array(self.bank.urls)[mask]
 
         mask = self.difference <= max_missing_ings
-        self.difference = np.array(self.difference)[mask]
+        self.must_have_mask = np.array(self.must_have_mask)[mask]
+        self.similarity = np.array(self.similarity)[mask]
+        self.bank.urls = np.array(self.bank.urls)[mask]
+
+        mask = self.must_have_mask
         self.similarity = np.array(self.similarity)[mask]
         self.bank.urls = np.array(self.bank.urls)[mask]
 
@@ -68,5 +89,6 @@ class panTree:
     def process(self, max_missing_ings = np.inf):
         self.vectorize_ingredient_list()
         self.calculate_difference()
+        self.calculate_must_haves()
         self.calculate_similarity()
         self.rank_urls(max_missing_ings)
