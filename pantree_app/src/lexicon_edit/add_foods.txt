@@ -17,3 +17,4 @@ daikon
 ponzu
 yuzu
 ube
+yeast
