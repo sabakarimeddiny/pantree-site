@@ -1,5 +1,6 @@
 import re
 import requests
+import json
 from bs4 import BeautifulSoup
 from .domain import Domain
 from ..recipe import Recipe
@@ -32,10 +33,10 @@ class NYT(Domain):
             for link in links:
                 if link in self.urls:
                     continue
-                try:
-                    recipe = Recipe(link, self.get_raw_ingredient_strings(link))
-                except IndexError:
-                    continue
+                # try:
+                recipe = Recipe(link, self.get_raw_ingredient_strings(link))
+                # except IndexError:
+                #     continue
                 recipe.get_ingredients()
                 recipe.write_recipe_to_json(self.json_file)
         else:
@@ -48,10 +49,15 @@ class NYT(Domain):
                 self.get_page_links_to_recipes(link, depth)
 
     def get_raw_ingredient_strings(self, URL):
+        ingredients = []
         page = requests.get(URL)
         soup = BeautifulSoup(page.content, "html.parser")
         results = soup.find_all("div", class_="recipe-instructions")
-        ingredients = [ingredient.text.strip() for ingredient in results[0].find_all("span",class_="ingredient-name")]
+        if results != []:
+            ingredients = [ingredient.text.strip() for ingredient in results[0].find_all("span",class_="ingredient-name")]
+        else:
+            ingredients =json.loads(soup.find_all('script')[0].text)['recipeIngredient']
+            ingredients = [x.split('\xa0')[0] for x in ingredients]      
         ingredients = self.filter_optionals(ingredients)
         return ingredients
 
