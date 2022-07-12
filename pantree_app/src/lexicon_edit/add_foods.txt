@@ -16,6 +16,10 @@ mirin
 daikon
 ponzu
 yuzu
+gochujang
+gochugaru
+gochukaru
+chili_crisp
 ube
 yeast
 nutella
