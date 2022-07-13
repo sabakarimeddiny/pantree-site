@@ -80,9 +80,10 @@ class panTree:
         self.similarity = np.array(self.similarity)[mask]
         self.bank.urls = np.array(self.bank.urls)[mask]
 
-        mask = self.must_have_mask
-        self.similarity = np.array(self.similarity)[mask]
-        self.bank.urls = np.array(self.bank.urls)[mask]
+        if True in self.must_have_mask:
+            mask = self.must_have_mask
+            self.similarity = np.array(self.similarity)[mask]
+            self.bank.urls = np.array(self.bank.urls)[mask]
 
         self.rank = [x for s, x in sorted(zip(self.similarity, self.bank.urls))[::-1] if s not in [0, np.nan, np.inf]]            
     
