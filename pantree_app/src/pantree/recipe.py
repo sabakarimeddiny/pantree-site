@@ -36,8 +36,8 @@ class recipeDB:
                             (title text, time real, url text, ingredients text)''')
     
     def insert(self, recipe):
-        self.cur.execute("INSERT INTO recipes VALUES ('%s','%d','%s','%s')"
-                         %(recipe.title, recipe.time, recipe.url, recipe.ingredients))
+        self.cur.execute("INSERT INTO recipes VALUES (?,?,?,?)",
+                         (recipe.title, recipe.time, recipe.url, recipe.ingredients))
         self.save()
 
     def count(self):
