@@ -18,6 +18,9 @@ class foodNetwork(Domain):
             return True
         return False
     
+    def get_title(self, URL):
+        return 'test'
+    
     def get_page_links_to_recipes(self, URL, depth = 0, write = True):
         page = requests.get(URL)
         soup = BeautifulSoup(page.content, "html.parser")

@@ -29,3 +29,6 @@ class Domain:
 
     def get_links_to_recipes_from_homepage(self, depth = 0):
         self.get_page_links_to_recipes(URL = self.domain_prefix, depth=depth)
+    
+    def scrape(self, depth =0):
+        self.get_links_to_recipes_from_homepage(depth=depth)

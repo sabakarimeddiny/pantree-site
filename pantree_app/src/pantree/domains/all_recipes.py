@@ -16,6 +16,12 @@ class allRecipes(Domain):
             return True
         return False
     
+    def get_title(self, URL):
+        page = requests.get(URL)
+        soup = BeautifulSoup(page.content, "html.parser")
+        results = soup.find_all("h1", class_="headline heading-content elementFont__display")[0].text.strip()
+        return results
+
     def get_page_links_to_recipes(self, URL, depth = 0, write = True):
         page = requests.get(URL)
         soup = BeautifulSoup(page.content, "html.parser")
@@ -24,7 +30,10 @@ class allRecipes(Domain):
         for link in links:
             if self.db.check_exists(link):
                 continue
-            recipe = Recipe(self.get_title(link), 0, link, self.get_raw_ingredient_strings(link))
+            try:
+                recipe = Recipe(self.get_title(link), 0, link, self.get_raw_ingredient_strings(link))
+            except IndexError:
+                continue
             recipe.get_ingredients()
             self.db.insert(recipe)
         depth -= 1
