@@ -6,10 +6,10 @@ from ..recipe import Recipe
 
 class foodNetwork(Domain):
 
-    def __init__(self, json_file = ''):
+    def __init__(self, db = ''):
         super(foodNetwork, self).__init__(domain_prefix='https://www.foodnetwork.com/recipes/',
                                   re_domain_substring=r'.+/recipes',
-                                  json_file=json_file)
+                                  db=db)
     
     def is_page(self, URL):
         if URL.endswith('.recipePrint'):
@@ -25,18 +25,12 @@ class foodNetwork(Domain):
         links = list(set([x for x in links if re.match(self.re_domain_substring,x) is not None]))
         links = ['https:' + x for x in links]
         links = [link for link in links if self.is_page(link)]
-        if write:
-            for link in links:
-                if link in self.urls:
-                    continue
-                try:
-                    recipe = Recipe(link, self.get_raw_ingredient_strings(link))
-                except IndexError:
-                    continue
-                recipe.get_ingredients()
-                recipe.write_recipe_to_json(self.json_file)
-        else:
-            [self.urls.add(x) for x in links]
+        for link in links:
+            if self.db.check_exists(link):
+                continue
+            recipe = Recipe(self.get_title(link), 0, link, self.get_raw_ingredient_strings(link))
+            recipe.get_ingredients()
+            self.db.insert(recipe)
         depth -= 1
         if depth < 0:
             return

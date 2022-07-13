@@ -7,10 +7,10 @@ from ..tree import contains_food
 
 class srsEats(Domain):
 
-    def __init__(self, json_file = ''):
+    def __init__(self, db = ''):
         super(srsEats, self).__init__(domain_prefix='https://www.seriouseats.com/',
                                   re_domain_substring=r'https://www.seriouseats.com/',
-                                  json_file=json_file)
+                                  db=db)
     
     def is_page(self, URL):
         page = requests.get(URL)
@@ -29,20 +29,12 @@ class srsEats(Domain):
         links = list(set([x for x in links if re.match(self.re_domain_substring,x) is not None]))
         links = [x for x in links if contains_food(x.split('/')[-1].replace('-','_'))]
         links = [x for x in links if self.is_page(x)]
-        if write:
-            for link in links:
-                if link in self.urls:
-                    continue
-                try:
-                    recipe = Recipe(link, self.get_raw_ingredient_strings(link))
-                except IndexError:
-                    continue
-                if len(recipe.ingredients) == 0:
-                    continue
-                recipe.get_ingredients()
-                recipe.write_recipe_to_json(self.json_file)
-        else:
-            [self.urls.add(x) for x in links]
+        for link in links:
+            if self.db.check_exists(link):
+                continue
+            recipe = Recipe(self.get_title(link), 0, link, self.get_raw_ingredient_strings(link))
+            recipe.get_ingredients()
+            self.db.insert(recipe)
         depth -= 1
         if depth < 0:
             return
