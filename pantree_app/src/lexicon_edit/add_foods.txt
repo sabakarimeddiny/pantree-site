@@ -23,3 +23,6 @@ chili_crisp
 ube
 yeast
 nutella
+campari
+aperol
+angostura
