@@ -13,7 +13,7 @@ COMMON_INGS = []#['water', 'salt', 'kosher salt']
 
 class panTree:
 
-    def __init__(self, ingredient_list = [], must_have_list = [], pickled_recipeBank = '', recipeBank_json = ''):
+    def __init__(self, ingredient_list = [], must_have_list = [], pickled_recipeBank = ''):
         ingredient_list = set(ingredient_list)
         must_have_list = set(must_have_list)
         for x in COMMON_INGS:
@@ -28,16 +28,12 @@ class panTree:
         self.must_haves = None
         self.rank = None
         self.bank = recipeBank()
-        if pickled_recipeBank != '':
-            with open(os.path.join(pickled_recipeBank, 'matrix.p'), 'rb') as f:
-                self.bank.data = pickle.load(f)
-            with open(os.path.join(pickled_recipeBank, 'urls.p'), 'rb') as f:
-                self.bank.urls = pickle.load(f)
-            with open(os.path.join(pickled_recipeBank, 'ingredients.p'), 'rb') as f:
-                self.bank.ingredients = pickle.load(f)
-        else:
-            self.bank = recipeBank(recipeBank_json)
-            self.bank.make_sparse_matrix()
+        with open(os.path.join(pickled_recipeBank, 'matrix.p'), 'rb') as f:
+            self.bank.data = pickle.load(f)
+        with open(os.path.join(pickled_recipeBank, 'urls.p'), 'rb') as f:
+            self.bank.urls = pickle.load(f)
+        with open(os.path.join(pickled_recipeBank, 'ingredients.p'), 'rb') as f:
+            self.bank.ingredients = pickle.load(f)
         
     def vectorize_ingredient_list(self):
         self.data = dok_matrix((1,len(self.bank.ingredients)), dtype=np.int8)
