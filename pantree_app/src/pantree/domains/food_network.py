@@ -12,6 +12,8 @@ class foodNetwork(Domain):
                                   json_file=json_file)
     
     def is_page(self, URL):
+        if URL.endswith('.recipePrint'):
+            return False
         if URL.startswith(self.domain_prefix):
             return True
         return False
