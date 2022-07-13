@@ -10,7 +10,7 @@ from . import common
 
 class Recipe:
 
-    def __init__(self, url, ingredients):#, domain):
+    def __init__(self, url, ingredients):
         self.url = url
         self.ingredients = ingredients
     
