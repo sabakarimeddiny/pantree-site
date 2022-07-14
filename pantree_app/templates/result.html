@@ -7,8 +7,7 @@
     Here are your results:
 </h1>
 <ul> 
-    {% for n in result %}
-        <li><a href={{ n }}> {{ n }} </a></li>
-        <!-- <li>{{ n }}</li> -->
+    {% for m, n in result %}
+        <li><a href={{ n }}> {{ m }} </a></li>
     {% endfor %}
 </ul>
