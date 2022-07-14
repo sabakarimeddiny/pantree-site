@@ -3,7 +3,7 @@ import requests
 import json
 from bs4 import BeautifulSoup
 from .domain import Domain
-from ..recipe import Recipe, recipeDB
+from ..recipe import Recipe
 
 class NYT(Domain):
 
