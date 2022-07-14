@@ -17,10 +17,11 @@ def get_ingredients(request):
             sep_must_have_list = [x.strip() for x in must_haves.split(',')]
             p = panTree(sep_ing_list, 
                         sep_must_have_list)
+            num = p.db.count()
             if len(p.rank) != 0:
-                return result(request, p.rank)
+                return result(request, num, p.rank)
             else:
-                return result(request, ['pantree could not find anything :('])
+                return result(request, num, ['pantree could not find anything :('])
 
     # if a GET (or any other method) we'll create a blank form
     else:
@@ -28,5 +29,5 @@ def get_ingredients(request):
 
     return render(request, 'ingredients.html', {'form': form})
 
-def result(request, result):
-    return render(request, 'result.html', {'result' : result})
+def result(request, num, result):
+    return render(request, 'result.html', {'num': num, 'result' : result})
