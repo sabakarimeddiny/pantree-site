@@ -60,7 +60,7 @@ class recipeDB:
             time = row[1]
             url = row[2]
             ingredients = row[3].split(',')
-            one_hot = np.array(common.vectorize(ingredients, list(self.ingredients)))
+            one_hot = np.array(common.vectorize(ingredients, self.ingredients))
             one_hot_indices = np.where(one_hot == 1)
             for j in one_hot_indices:
                 matrix[j, i] = 1
