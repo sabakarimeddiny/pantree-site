@@ -17,6 +17,7 @@ class bonAppetit(Domain):
         return False
     
     def get_title(self, URL):
+        print(URL)
         page = requests.get(URL)
         soup = BeautifulSoup(page.content, "html.parser")
         results = soup.find_all("h1", class_="BaseWrap-sc-TURhJ BaseText-fFzBQt SplitScreenContentHeaderHed-fxVOKs eTiIvU exAltS fOuMTo")[0].text.strip()

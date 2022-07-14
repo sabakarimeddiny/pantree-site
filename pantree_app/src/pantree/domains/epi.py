@@ -19,7 +19,10 @@ class epicurious(Domain):
     def get_title(self, URL):
         page = requests.get(URL)
         soup = BeautifulSoup(page.content, "html.parser")
-        results = soup.find_all("h1", class_="BaseWrap-sc-TURhJ BaseText-fFzBQt SplitScreenContentHeaderHed-fxVOKs eTiIvU gaogNm fOuMTo")[0].text.strip()
+        try:
+            results = soup.find_all("h1", class_="BaseWrap-sc-TURhJ BaseText-fFzBQt SplitScreenContentHeaderHed-fxVOKs eTiIvU gaogNm fOuMTo")[0].text.strip()
+        except IndexError:
+            print(URL)
         return results
     
     def get_page_links_to_recipes(self, URL, depth = 0, write = True):

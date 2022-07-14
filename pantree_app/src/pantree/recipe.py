@@ -80,7 +80,7 @@ class recipeDB:
         
 
     def check_exists(self, url):
-        self.cur.execute("SELECT url FROM recipes WHERE url='%s'"%url)
+        self.cur.execute("SELECT url FROM recipes WHERE url=?", (url,))
         result = self.cur.fetchone()
         if result:
             return True
