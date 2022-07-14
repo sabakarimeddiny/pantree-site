@@ -5,8 +5,8 @@ class NameForm(forms.Form):
 
 class IngredientForm(forms.Form):
     ingredients = forms.CharField(label='ingredients I have', max_length=10000, required=False)
-    must_have_ings = forms.CharField(label = 'only show me only recipes that have (optional)', max_length=1000, required=False)
-    max_missing_ings = forms.IntegerField(label='max. number of missing ingredients (optional)', max_value=100, required=False)
+    must_have_ings = forms.CharField(label = 'only show me only recipes that have', max_length=1000, required=False)
+    # max_missing_ings = forms.IntegerField(label='max. number of missing ingredients (optional)', max_value=100, required=False)
 
 # class IntForm(forms.Form):
     
