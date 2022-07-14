@@ -1,5 +1,3 @@
-# from django.http import HttpResponseRedirect
-import os
 from django.shortcuts import render
 from .src.pantree.panTree import panTree
 
@@ -15,17 +13,10 @@ def get_ingredients(request):
         if form.is_valid(): # also fills the cleaned_data attr
             raw = form.cleaned_data.get('ingredients')
             must_haves = form.cleaned_data.get('must_have_ings')
-            max_missing_ings = form.cleaned_data.get('max_missing_ings')
-            if max_missing_ings is None:
-                max_missing_ings = 100
             sep_ing_list = [x.strip() for x in raw.split(',')]
             sep_must_have_list = [x.strip() for x in must_haves.split(',')]
             p = panTree(sep_ing_list, 
-                        sep_must_have_list,
-                        pickled_recipeBank = os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                                                          'src',
-                                                          'data', 'bank'))
-            p.process(max_missing_ings=max_missing_ings)
+                        sep_must_have_list)
             if len(p.rank) != 0:
                 return result(request, p.rank)
             else:
