@@ -69,12 +69,15 @@ class recipeDB:
             times.append(time)
             urls.append(url)
 
+        with open(os.path.join(dir_, 'titles.p'), 'wb') as f:
+            pickle.dump(titles, f)
         with open(os.path.join(dir_, 'matrix.p'), 'wb') as f:
             pickle.dump(matrix, f)
         with open(os.path.join(dir_, 'urls.p'), 'wb') as f:
             pickle.dump(urls, f)
         with open(os.path.join(dir_, 'ingredients.p'), 'wb') as f:
             pickle.dump(self.ingredients, f)
+        
 
     def check_exists(self, url):
         self.cur.execute("SELECT url FROM recipes WHERE url='%s'"%url)
@@ -99,6 +102,8 @@ class recipeBank:
     def __init__(self):
         self.data = None
         self.urls = None
+        self.titles = None
+        self.ingredients = None
         
 
 
