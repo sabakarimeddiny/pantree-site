@@ -47,7 +47,7 @@ class recipeDB:
     def get_ingredients(self):
         for ingredients in self.cur.execute('SELECT ingredients FROM recipes'):
             [self.ingredients.add(x) for x in ingredients[0].split(',')]
-        self.ingredients = self.ingredients
+        self.ingredients = sorted(self.ingredients)
 
     def serialize(self, dir_):
         titles = []
