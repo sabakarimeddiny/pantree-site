@@ -19,7 +19,7 @@ class food52(Domain):
     def get_title(self, URL):
         page = requests.get(URL)
         soup = BeautifulSoup(page.content, "html.parser")
-        results = soup.find_all("h1", class_="recipe__title")[0].text.strip()
+        results = soup.find_all("h1", class_="recipe__title")[0].text.strip().replace('\xa0',' ')
         return results
     
     def get_page_links_to_recipes(self, URL, depth = 0, write = True):
