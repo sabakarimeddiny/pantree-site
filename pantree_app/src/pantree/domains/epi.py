@@ -19,10 +19,7 @@ class epicurious(Domain):
     def get_title(self, URL):
         page = requests.get(URL)
         soup = BeautifulSoup(page.content, "html.parser")
-        try:
-            results = soup.find_all("h1", class_="BaseWrap-sc-TURhJ BaseText-fFzBQt SplitScreenContentHeaderHed-fxVOKs eTiIvU gaogNm fOuMTo")[0].text.strip()
-        except IndexError:
-            print(URL)
+        results = soup.find_all("h1", class_="BaseWrap-sc-TURhJ BaseText-fFzBQt SplitScreenContentHeaderHed-fxVOKs eTiIvU gaogNm fOuMTo")[0].text.strip()
         return remove_special_char(results)
     
     def get_page_links_to_recipes(self, URL, depth = 0, write = True):
@@ -41,7 +38,10 @@ class epicurious(Domain):
         for link in links:
             if self.db.check_exists(link):
                 continue
-            recipe = Recipe(self.get_title(link), 0, link, self.get_raw_ingredient_strings(link))
+            try:
+                recipe = Recipe(self.get_title(link), 0, link, self.get_raw_ingredient_strings(link))
+            except IndexError:
+                continue
             recipe.get_ingredients()
             self.db.insert(recipe)
         depth -= 1
