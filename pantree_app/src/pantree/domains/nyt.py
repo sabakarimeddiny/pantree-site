@@ -4,6 +4,7 @@ import json
 from bs4 import BeautifulSoup
 from .domain import Domain
 from ..recipe import Recipe
+from ..common import remove_special_char
 
 class NYT(Domain):
 
@@ -26,7 +27,7 @@ class NYT(Domain):
         page = requests.get(URL)
         soup = BeautifulSoup(page.content, "html.parser")
         results = soup.find_all("h1", class_="contenttitle_contentTitle__36j2i header_recipe-name__PkKYu")[0].text.strip()
-        return results
+        return remove_special_char(results)
 
     def get_time(self):
         pass

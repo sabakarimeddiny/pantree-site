@@ -2,6 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 from .domain import Domain
 from ..recipe import Recipe
+from ..common import remove_special_char
 
 class bonAppetit(Domain):
 
@@ -20,7 +21,7 @@ class bonAppetit(Domain):
         page = requests.get(URL)
         soup = BeautifulSoup(page.content, "html.parser")
         results = soup.find_all("h1", class_="BaseWrap-sc-TURhJ BaseText-fFzBQt SplitScreenContentHeaderHed-fxVOKs eTiIvU exAltS fOuMTo")[0].text.strip()
-        return results
+        return remove_special_char(results)
 
     def get_page_links_to_recipes(self, URL, depth = 0, write = True):
         page = requests.get(URL)

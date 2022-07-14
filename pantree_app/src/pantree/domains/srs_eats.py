@@ -4,6 +4,7 @@ from bs4 import BeautifulSoup
 from .domain import Domain
 from ..recipe import Recipe
 from ..tree import contains_food
+from ..common import remove_special_char
 
 class srsEats(Domain):
 
@@ -26,7 +27,7 @@ class srsEats(Domain):
         page = requests.get(URL)
         soup = BeautifulSoup(page.content, "html.parser")
         results = soup.find_all("h1", class_="heading__title")[0].text.strip()
-        return results
+        return remove_special_char(results)
     
     def get_page_links_to_recipes(self, URL, depth = 0, write = True):
         page = requests.get(URL)
@@ -38,7 +39,10 @@ class srsEats(Domain):
         for link in links:
             if self.db.check_exists(link):
                 continue
-            recipe = Recipe(self.get_title(link), 0, link, self.get_raw_ingredient_strings(link))
+            try:
+                recipe = Recipe(self.get_title(link), 0, link, self.get_raw_ingredient_strings(link))
+            except IndexError:
+                continue
             recipe.get_ingredients()
             self.db.insert(recipe)
         depth -= 1
