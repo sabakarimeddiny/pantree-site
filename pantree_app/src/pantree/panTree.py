@@ -28,6 +28,8 @@ class panTree:
         self.must_haves = None
         self.rank = None
         self.bank = recipeBank()
+        with open(os.path.join(pickled_recipeBank, 'titles.p'), 'rb') as f:
+            self.bank.titles = pickle.load(f)
         with open(os.path.join(pickled_recipeBank, 'matrix.p'), 'rb') as f:
             self.bank.data = pickle.load(f)
         with open(os.path.join(pickled_recipeBank, 'urls.p'), 'rb') as f:
@@ -36,7 +38,7 @@ class panTree:
             self.bank.ingredients = pickle.load(f)
         
     def vectorize_ingredient_list(self):
-        self.data = dok_matrix((1,len(self.bank.ingredients)), dtype=np.int8)
+        self.data = dok_matrix((1, len(self.bank.ingredients)), dtype=np.int8)
         one_hot = np.array(common.vectorize(self.ingredient_list, self.bank.ingredients))
         one_hot_indices = np.where(one_hot == 1)
         for j in one_hot_indices:
@@ -81,7 +83,8 @@ class panTree:
             self.similarity = np.array(self.similarity)[mask]
             self.bank.urls = np.array(self.bank.urls)[mask]
 
-        self.rank = [x for s, x in sorted(zip(self.similarity, self.bank.urls))[::-1] if s not in [0, np.nan, np.inf]]            
+        self.rank = [(y,x) for s, x, y in sorted(zip(self.similarity, self.bank.urls, self.bank.titles))[::-1] \
+                      if s not in [0, np.nan, np.inf]]            
     
     def process(self, max_missing_ings = np.inf):
         self.vectorize_ingredient_list()
