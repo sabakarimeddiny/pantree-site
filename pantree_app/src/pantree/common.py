@@ -1,6 +1,5 @@
 
-# from itertools import chain, combinations
-import numpy as np
+import re
 
 def powerset(iterable):
     # "powerset([1,2,3]) --> () (1,) (2,) (3,) (1,2) (1,3) (2,3) (1,2,3)"
@@ -13,6 +12,9 @@ def powerset(iterable):
     powerset.append(iterable[1:])
     powerset.append(iterable[:-1])
     return powerset
+
+def remove_special_char(s):
+    return re.sub('[^a-zA-Z0-9 \n\.]', '', s)
 
 def vectorize(ingredient_list, lex):
     return [int(x in ingredient_list) for x in lex]
