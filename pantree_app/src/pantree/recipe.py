@@ -1,13 +1,7 @@
-import os
 import re
 import sqlite3
-import pickle
-import json
-import numpy as np
-from scipy.sparse import dok_matrix
 
 from . import tree
-from . import common
 
 class Recipe:
 
@@ -32,8 +26,7 @@ class recipeDB:
         self.ingredients = set({})
 
     def create_table(self):
-        self.cur.execute('''CREATE TABLE recipes
-                            (title text, time real, url text, ingredients text)''')
+        self.cur.execute("CREATE VIRTUAL TABLE recipes USING FTS5(title, time, url, ingredients)")
     
     def insert(self, recipe):
         self.cur.execute("INSERT INTO recipes VALUES (?,?,?,?)",
@@ -43,42 +36,24 @@ class recipeDB:
     def count(self):
         self.cur.execute("SELECT Count() FROM recipes")
         return self.cur.fetchone()[0]
+    
+    def search(self, ingredient_list, must_have_list):
+        query = "SELECT title, url FROM recipes "
+        if ingredient_list != [] or must_have_list != []:
+            query += "WHERE ingredients MATCH '("
+            if ingredient_list != []:
+                query += " OR ".join(ingredient_list) + ")"
+                if must_have_list != []:
+                    query += " AND ("
+                else:
+                    query += "'"
+            query += " AND ".join(must_have_list) 
+            if must_have_list != []:
+                query += ")'"
+            query += " ORDER BY bm25(recipes)"
+        print(query)
+        return self.cur.execute(query).fetchall()
         
-    def get_ingredients(self):
-        for ingredients in self.cur.execute('SELECT ingredients FROM recipes'):
-            [self.ingredients.add(x) for x in ingredients[0].split(',')]
-        self.ingredients = sorted(self.ingredients)
-
-    def serialize(self, dir_):
-        titles = []
-        times = []
-        urls = []
-        matrix = dok_matrix((len(self.ingredients), self.count()), dtype=np.int8)
-        i = 0
-        for row in self.cur.execute('SELECT * FROM recipes'):
-            title = row[0]
-            time = row[1]
-            url = row[2]
-            ingredients = row[3].split(',')
-            one_hot = np.array(common.vectorize(ingredients, self.ingredients))
-            one_hot_indices = np.where(one_hot == 1)
-            for j in one_hot_indices:
-                matrix[j, i] = 1
-            i+=1
-            titles.append(title)
-            times.append(time)
-            urls.append(url)
-
-        with open(os.path.join(dir_, 'titles.p'), 'wb') as f:
-            pickle.dump(titles, f)
-        with open(os.path.join(dir_, 'matrix.p'), 'wb') as f:
-            pickle.dump(matrix, f)
-        with open(os.path.join(dir_, 'urls.p'), 'wb') as f:
-            pickle.dump(urls, f)
-        with open(os.path.join(dir_, 'ingredients.p'), 'wb') as f:
-            pickle.dump(self.ingredients, f)
-        
-
     def check_exists(self, url):
         self.cur.execute("SELECT url FROM recipes WHERE url=?", (url,))
         result = self.cur.fetchone()
