@@ -1,11 +1,6 @@
 import os
-import pickle
-from scipy.sparse import dok_matrix
-import scipy.sparse
-import numpy as np
 
-from .recipe import recipeBank
-from . import common
+from .recipe import recipeDB
 from . import tree
 
 
@@ -13,82 +8,17 @@ COMMON_INGS = []#['water', 'salt', 'kosher salt']
 
 class panTree:
 
-    def __init__(self, ingredient_list = [], must_have_list = [], pickled_recipeBank = ''):
+    def __init__(self, ingredient_list = [], must_have_list = [], 
+                       db = os.path.join(os.path.dirname(os.path.abspath(__file__)),'..','data','recipeDB.db')):
         ingredient_list = set(ingredient_list)
         must_have_list = set(must_have_list)
-        for x in COMMON_INGS:
-            ingredient_list.add(x)
+        # for x in COMMON_INGS:
+        #     ingredient_list.add(x)
         for x in must_have_list:
             ingredient_list.add(x)
         self.ingredient_list = [tree.find_ingredient(x) for x in ingredient_list]
         self.must_have_list = [tree.find_ingredient(x) for x in must_have_list]
-        self.data = None
-        self.similarity = None
-        self.difference = None
-        self.must_haves = None
-        self.rank = None
-        self.bank = recipeBank()
-        with open(os.path.join(pickled_recipeBank, 'titles.p'), 'rb') as f:
-            self.bank.titles = pickle.load(f)
-        with open(os.path.join(pickled_recipeBank, 'matrix.p'), 'rb') as f:
-            self.bank.data = pickle.load(f)
-        with open(os.path.join(pickled_recipeBank, 'urls.p'), 'rb') as f:
-            self.bank.urls = pickle.load(f)
-        with open(os.path.join(pickled_recipeBank, 'ingredients.p'), 'rb') as f:
-            self.bank.ingredients = pickle.load(f)
-        
-    def vectorize_ingredient_list(self):
-        self.data = dok_matrix((1, len(self.bank.ingredients)), dtype=np.int8)
-        one_hot = np.array(common.vectorize(self.ingredient_list, self.bank.ingredients))
-        one_hot_indices = np.where(one_hot == 1)
-        for j in one_hot_indices:
-            self.data[0, j] = 1
-
-        self.must_haves = dok_matrix((1,len(self.bank.ingredients)), dtype=np.int8)
-        one_hot = np.array(common.vectorize(self.must_have_list, self.bank.ingredients))
-        one_hot_indices = np.where(one_hot == 1)
-        for j in one_hot_indices:
-            self.must_haves[0, j] = 1
-
-    def calculate_difference(self):
-        self.difference = np.zeros(self.bank.data.shape[1])
-        for k, v in self.bank.data.items():
-            if v == 1 and self.data[0,k[0]] == 0:
-                self.difference[k[1]] += 1
-
-    def calculate_must_haves(self):
-        must_have_norm = sum(np.array(self.must_haves.todense()).flatten())
-        self.must_have_mask = np.array((self.must_haves.tocsc()*self.bank.data.tocsc()).todok().todense()).flatten()/must_have_norm == 1
-
-    def calculate_similarity(self):
-        per_url_norm = np.array(scipy.sparse.linalg.norm(self.bank.data,axis=0)).flatten()
-        ing_norm = np.array(np.linalg.norm(self.data.todense()))
-        self.similarity = np.array((self.data.tocsc()*self.bank.data.tocsc()).todok().todense()).flatten()/per_url_norm/ing_norm
-    
-    def rank_urls(self, max_missing_ings = np.inf):
-
-        mask = np.isfinite(self.similarity)
-        self.difference = np.array(self.difference)[mask]
-        self.must_have_mask = np.array(self.must_have_mask)[mask]
-        self.similarity = np.array(self.similarity)[mask]
-        self.bank.urls = np.array(self.bank.urls)[mask]
-
-        mask = self.difference <= max_missing_ings
-        self.must_have_mask = np.array(self.must_have_mask)[mask]
-        self.similarity = np.array(self.similarity)[mask]
-        self.bank.urls = np.array(self.bank.urls)[mask]
-
-        if True in self.must_have_mask:
-            mask = self.must_have_mask
-            self.similarity = np.array(self.similarity)[mask]
-            self.bank.urls = np.array(self.bank.urls)[mask]
-
-        self.rank = [(y,x) for s, x, y in sorted(zip(self.similarity, self.bank.urls, self.bank.titles))[::-1] \
-                      if s not in [0, np.nan, np.inf]]            
-    
-    def process(self, max_missing_ings = np.inf):
-        self.vectorize_ingredient_list()
-        self.calculate_difference()
-        self.calculate_must_haves()
-        self.calculate_similarity()
-        self.rank_urls(max_missing_ings)
+        self.ingredient_list = [x for x in self.ingredient_list if x is not None]
+        self.must_have_list = [x for x in self.must_have_list if x is not None]
+        self.db = recipeDB(db)
+        self.rank = self.db.search(self.ingredient_list, self.must_have_list)
