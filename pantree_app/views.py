@@ -8,7 +8,7 @@ def get_ingredients(request):
     # if this is a POST request we need to process the form data
     if request.method == 'POST':
         # create a form instance and populate it with data from the request:
-        form = IngredientForm(request.POST)
+        form = IngredientForm(request.POST,auto_id="ingForm_%s")
         # check whether it's valid:
         if form.is_valid(): # also fills the cleaned_data attr
             raw = form.cleaned_data.get('ingredients')
@@ -25,7 +25,7 @@ def get_ingredients(request):
 
     # if a GET (or any other method) we'll create a blank form
     else:
-        form = IngredientForm()
+        form = IngredientForm(auto_id="ingForm_%s")
 
     return render(request, 'ingredients.html', {'form': form})
 
