@@ -53,6 +53,11 @@ class recipeDB:
             query += " ORDER BY bm25(recipes)"
         print(query)
         return self.cur.execute(query).fetchall()
+    
+    def get_ingredients(self):
+        query = "SELECT ingredients from recipes"
+        xss = [x[0].split(",") for x in self.cur.execute(query).fetchall()]
+        return sorted(list(set([x for xs in xss for x in xs])))
         
     def check_exists(self, url):
         self.cur.execute("SELECT url FROM recipes WHERE url=?", (url,))
