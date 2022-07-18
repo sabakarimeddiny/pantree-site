@@ -30,9 +30,8 @@ class food52(Domain):
         links = list(set([x for x in links if re.match(self.re_domain_substring,x) is not None]))
         links = ['https://food52.com' + x for x in links]
         links = [link for link in links if self.is_page(link)]
+        links = [link for link in links if not self.db.check_exists(link)]
         for link in links:
-            if self.db.check_exists(link):
-                continue
             try:
                 recipe = Recipe(self.get_title(link), 0, link, self.get_raw_ingredient_strings(link))
             except IndexError:

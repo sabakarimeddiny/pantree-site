@@ -15,6 +15,8 @@ class allRecipes(Domain):
     def is_page(self, URL):
         if URL.startswith(self.domain_prefix + 'recipe/'):
             return True
+        if URL.startswith(self.domain_prefix + 'gallery/'):
+            return True
         return False
     
     def get_title(self, URL):
@@ -28,9 +30,8 @@ class allRecipes(Domain):
         soup = BeautifulSoup(page.content, "html.parser")
         links = [a.get('href') for a in soup.find_all('a', href=True)]
         links = [link for link in links if self.is_page(link)]
+        links = [link for link in links if not self.db.check_exists(link)]
         for link in links:
-            if self.db.check_exists(link):
-                continue
             try:
                 recipe = Recipe(self.get_title(link), 0, link, self.get_raw_ingredient_strings(link))
             except IndexError:
