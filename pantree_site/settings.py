@@ -35,6 +35,7 @@ ALLOWED_HOSTS = ['Pantree-env-3.eba-encwvp4m.us-east-1.elasticbeanstalk.com',
 # Application definition
 
 INSTALLED_APPS = [
+    'pantree_app',
     'pantree_app.apps',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -84,6 +85,10 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+
+# Custom User
+AUTH_USER_MODEL = 'pantree_app.User'
 
 
 # Password validation
