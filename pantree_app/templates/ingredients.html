@@ -17,23 +17,25 @@
 <br>
 <form method="post" autocomplete="off" >
     {% csrf_token %}
-    <p>
+    <div class="grid">
         <label> {{ form.ingredients.label}}  </label> &nbsp;
         {{ form.ingredients }}
-    </p>
-    <p>
+        <!-- <input class="input" type="submit" value="Submit"> -->
+    </div>
+    <br>
+    <div class="grid">
         <label> {{ form.must_have_ings.label}}  </label> &nbsp;
         {{ form.must_have_ings }}
-    </p>
+    </div>
     <!-- <p>
         <label> {{ form.max_missing_ings.label}}  </label> &nbsp;
         {{ form.max_missing_ings }}
     </p> -->
     <br>
-    <p>
+    <div class="grid">
         <label> </label>
-        <input type="submit" value="Submit">
-    </p>
+        <input class="input" type="submit" value="Submit">
+    </div>
 </form>
 <script type = "text/javascript" src="./../static/js/autocomplete.js"></script> 
 </div>
