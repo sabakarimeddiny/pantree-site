@@ -12,6 +12,14 @@ $(document).ready(function() {
         $('input[id=ingForm_must_have_ings]').val('');
     });
 
+    $('button[id=clear]').click(function () {
+        $('.list[id=ing] .removable-list-item').remove();
+    });
+
+    $('button[id=save]').click(function () {
+        $('.list[id=ing] .removable-list-item').remove();
+    });
+
     var timeout = false;
     $("input, .sidebar, button").on({
         mouseenter: function () {
@@ -52,6 +60,14 @@ $(document).ready(function() {
             $('button[id=must_have_button]').click();
         }
     });
+
+    var array = $('input[id=ings]').val().split(',');
+    $.each(array,function(i) {
+        // alert(array[i]);
+        $('input[id=ingForm_ingredients]').val(array[i]);
+        $('button[id=ing_button]').click();
+     });
+
 });
 
 $(document).on('click','.removable-list-item',function(){ $(this).remove(); });
