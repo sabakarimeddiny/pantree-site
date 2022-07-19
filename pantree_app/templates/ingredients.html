@@ -14,6 +14,8 @@
     {% if user.is_authenticated %}
         <li>Hi {{ user.username }}!</li>
         <a href="{% url 'logout' %}">Log Out</a>
+        <input type="hidden" id="ings" value=" {{ user.ings }} ">
+        <input type="hidden" name='username' value=" {{ user.username }} ">
     {% else %}
         <a href="{% url 'login' %}">Log In</a>
         <a href="/accounts/register">Create Account</a>
@@ -42,8 +44,15 @@
     <br>
     <div class="grid">
         <label> </label>
-        <input class="input" type="submit" value="Submit">
-</form>
+        <input class="input" name='submit' type="submit" value="Submit">  
+{% block getuser %}
+{% if user.is_authenticated %}
+    <input class="input" name='submitAndSave' type="submit" value="Submit and Save"> 
+    <input type="hidden" name='username' value=" {{ user.username }} ">
+{% else %}
+    <a href="{% url 'login' %}"> <input class="input" type="url" value="Log in"></a>  
+{% endif %}
+{% endblock %}
 <script type = "text/javascript" src="./../static/js/autocomplete.js"></script> 
 </div>
 </div>
@@ -58,6 +67,14 @@
         <i class="fa-solid fa-angle-right"></i>
     </div>  
 </div>
+<button id="clear" type="button">Clear</button>
+{% block savedata %}
+{% if user.is_authenticated %}
+    <input class="input" name='save' type="submit" value="Save">
+    <input type="hidden" name='username' value=" {{ user.username }} ">
+{% endif %}
+{% endblock %}
 </div>
+</form>
 
 </body>
