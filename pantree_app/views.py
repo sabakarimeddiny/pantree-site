@@ -31,3 +31,6 @@ def get_ingredients(request):
 
 def result(request, num, result):
     return render(request, 'result.html', {'num': num, 'result' : result})
+
+def login(request):
+    return render(request, 'login.html')
