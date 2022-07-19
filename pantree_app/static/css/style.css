@@ -21,6 +21,41 @@ body {
   border-radius: 5px;
 }
 
+.sidebar input {
+
+  background-color: DodgerBlue;
+  color: #fff;
+  border-radius: 10px;
+  border-color: #bdc1c635;
+  padding: 7px;
+  width: 45%;
+  margin-left: 5px;
+  transform: rotate(270deg);
+}
+
+.sidebar button {
+
+  background-color: DodgerBlue;
+  color: #fff;
+  border-radius: 10px;
+  border-color: #bdc1c635;
+  padding: 7px;
+  width: 45%;
+  margin-left: 5px;
+  transform: rotate(270deg);
+}
+
+.sidebar button[id=clear] {
+  position: absolute;
+  left: 85%;
+  top: 36%;
+}
+.sidebar input{
+  position: absolute;
+  left: 85%;
+  top: 64%;
+}
+
 .sidebar .list .arrow-box{
   position: absolute;
   left: 92%;
@@ -190,8 +225,22 @@ input[type=submit] {
   border-radius: 10px;
   border-color: #2a2a2e;
   padding: 7px;
+  width: 45%;
+  margin-left: 5px;
 }
-
 input[type=submit]:hover {
   cursor: pointer;
 }
+input[type=url] {
+  background-color: DodgerBlue;
+  color: #fff;
+  border-radius: 10px;
+  border-color: #2a2a2e;
+  padding: 7px;
+  width: 45%;
+  margin-left: 5px;
+}
+input[type=url]:hover {
+  cursor: pointer;
+}
+
