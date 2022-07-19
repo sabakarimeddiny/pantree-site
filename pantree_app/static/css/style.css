@@ -1,14 +1,14 @@
 form {
     display: table;
     /* justify-content: center; */
-    text-align: center;
-    margin: 0 auto;
-    
+    /* text-align: center; */
+    /* margin: 0 auto; */
   }
 body {
-  font-family: Arial, Helvetica, sans-serif;
-  color: #ffffff;
   background-color: #2a2a2e;
+  font-size: 14px;
+  font-family: arial,sans-serif;
+  color: #bdc1c6;
 }
 
 a {
@@ -23,48 +23,65 @@ a {
   transform: translate(-50%, -50%);
 }
 
-label { display: table-cell;}
+label { 
+  display: table-cell;
+}
 
 input { 
   display: table-cell;
   color: #ffffff;
   background-color: #2a2a2e;
   border-radius: 7px;
-  border-width: 1px;
+  border-width: 0.5px;
   width: 300px;
+  z-index: 1;
 }
 
 input:hover {
   background-color: #444447;
   cursor: pointer;
+  /* border-color: #444447; */
 }
 
+input[type=text] {
+  padding: 7px;
+}
+input[type=submit] {
+  background-color: DodgerBlue;
+  color: #fff;
+  border-color: #bdc1c6;
+}
 
-h1 { text-align:center; }
-h4 { text-align:center; }
+h1 { 
+  text-align:center; 
+}
+
+h4 { 
+  text-align:center; 
+}
   
-p {
+.grid {
     display: table-row;  
     text-align: center;
   }
 
 .autocomplete-items {
     position: absolute;
-    box-shadow: 0px 0px 5px #aaaaaa;
+    /* box-shadow: 0px 0px 5px #aaaaaa; */
     background-color: #444447;
     border-radius: 10px;
-    width: 300px;
-    /* display: table-cell; */
+    /* width: 300px; */
+    display: table-cell;
   }
 
 .autocomplete-item {
     position: relative;
-    width: 300px;
     background-color: #444447;
-    display: table-row;
     text-align: left;
+    padding: 5px;
+    border-radius: 7px;
+    width: 300px;
   }
-
 
 .autocomplete-item:hover {
   background-color: #737373;
