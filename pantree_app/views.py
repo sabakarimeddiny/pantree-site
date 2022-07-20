@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from .src.pantree.panTree import panTree
-from .models import User
+from .models import CustomUser
 
 
 from .forms import IngredientForm
@@ -16,7 +16,7 @@ def get_ingredients(request):
             raw = form.cleaned_data.get('ingredients')
             must_haves = form.cleaned_data.get('must_have_ings')
             if request.POST.get("submitAndSave") or request.POST.get("save"):
-                user = User.objects.get(username=request.POST['username'].strip())
+                user = CustomUser.objects.get(email=request.POST['email'].strip())
                 ings = (raw + ',' + must_haves).strip()
                 ings = ','.join([x.strip() for x in ings.split(',') if x != ''])
                 user.ings = ings

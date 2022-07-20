@@ -12,10 +12,10 @@
     {% block content %}
     <a href="/">Home</a>
     {% if user.is_authenticated %}
-        <li>Hi {{ user.username }}!</li>
+        <li>Hello</li>
         <a href="{% url 'logout' %}">Log Out</a>
         <input type="hidden" id="ings" value=" {{ user.ings }} ">
-        <input type="hidden" name='username' value=" {{ user.username }} ">
+        <input type="hidden" name='email' value=" {{ user.email }} ">
     {% else %}
         <a href="{% url 'login' %}">Log In</a>
         <a href="/accounts/register">Create Account</a>
@@ -48,7 +48,7 @@
 {% block getuser %}
 {% if user.is_authenticated %}
     <input class="input" name='submitAndSave' type="submit" value="Submit and Save"> 
-    <input type="hidden" name='username' value=" {{ user.username }} ">
+    <input type="hidden" name='email' value=" {{ user.email }} ">
 {% else %}
     <a href="{% url 'login' %}"> <input class="input" type="button" value="Log in"></a>  
 {% endif %}
@@ -73,7 +73,7 @@
 <!-- {% block savedata %}
 {% if user.is_authenticated %}
     <input class="input" name='save' type="submit" value="Save">
-    <input type="hidden" name='username' value=" {{ user.username }} ">
+    <input type="hidden" name='email' value=" {{ user.email }} ">
 {% endif %}
 {% endblock %} -->
 </div>

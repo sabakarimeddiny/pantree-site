@@ -82,13 +82,13 @@ WSGI_APPLICATION = 'pantree_site.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': str(BASE_DIR / 'db.sqlite3'),
     }
 }
 
 
 # Custom User
-AUTH_USER_MODEL = 'pantree_app.User'
+AUTH_USER_MODEL = 'pantree_app.CustomUser'
 
 
 # Password validation
