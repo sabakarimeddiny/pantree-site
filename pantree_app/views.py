@@ -1,4 +1,5 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.urls import reverse
 from .src.pantree.panTree import panTree
 from .models import User
 
@@ -14,12 +15,14 @@ def get_ingredients(request):
         if form.is_valid(): # also fills the cleaned_data attr
             raw = form.cleaned_data.get('ingredients')
             must_haves = form.cleaned_data.get('must_have_ings')
-            if request.POST.get("submitAndSave"):# or request.POST.get("save"):
+            if request.POST.get("submitAndSave") or request.POST.get("save"):
                 user = User.objects.get(username=request.POST['username'].strip())
-                user.ings = (raw + ',' + must_haves).strip()
+                ings = (raw + ',' + must_haves).strip()
+                ings = ','.join([x.strip() for x in ings.split(',') if x != ''])
+                user.ings = ings
                 user.save()
-                if request.POST.get("save") == "Save":
-                    return render(request, 'ingredients.html', {'form': form})
+                # if request.POST.get("save"):
+                #     return render(request, 'ingredients.html', {'form': form})
             sep_ing_list = [x.strip() for x in raw.split(',')]
             sep_must_have_list = [x.strip() for x in must_haves.split(',')]
             p = panTree(sep_ing_list, 
@@ -36,8 +39,9 @@ def get_ingredients(request):
 
     return render(request, 'ingredients.html', {'form': form})
 
-def result(request, num, result):
-    return render(request, 'result.html', {'num': num, 'result' : result})
+def result(request, num, rank):
+    # return redirect(request, 'result_page', {'num': num, 'result' : rank})
+    return render(request, 'result.html', {'num': num, 'result' : rank})
 
 def login(request):
     return render(request, 'login.html')
