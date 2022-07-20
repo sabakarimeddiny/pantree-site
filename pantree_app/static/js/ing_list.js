@@ -66,4 +66,5 @@ $(document).ready(function() {
 
 });
 
-$(document).on('click','.removable-list-item',function(){ $(this).remove(); });
+// $(document).on('click','.removable-list-item',function(){ $(this).remove(); });
+$(document).on('click','i',function(){ $(this).parent().remove(); });

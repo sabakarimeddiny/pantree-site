@@ -12,7 +12,7 @@
 <div class="navbar">
     <a href="/">Home</a>
     {% if user.is_authenticated %}
-        <!-- <li>Hi {{ user.username }}!</li> -->
+		<li>Hello, {{ user.email }} </li>
         <a href="{% url 'logout' %}">Log Out</a>
     {% else %}
         <a href="{% url 'login' %}">Log In</a>

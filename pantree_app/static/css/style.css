@@ -80,7 +80,7 @@ body {
 }
 
 .removable-list-item {
-  position: relative;
+  position: static;
   top: 0px;
   margin-top: 4px;
   font-family: arial,sans-serif;
@@ -88,7 +88,7 @@ body {
   background-color: #904e9cb6;
   border-radius: 5px;
   padding: 5px;
-  left: 5%;
+  margin-left: 5%;
   width: 85%;
 }
 
