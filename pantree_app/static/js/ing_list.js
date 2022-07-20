@@ -16,10 +16,6 @@ $(document).ready(function() {
         $('.list[id=ing] .removable-list-item').remove();
     });
 
-    $('button[id=save]').click(function () {
-        $('.list[id=ing] .removable-list-item').remove();
-    });
-
     var timeout = false;
     $("input, .sidebar, button").on({
         mouseenter: function () {
