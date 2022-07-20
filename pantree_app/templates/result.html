@@ -1,9 +1,27 @@
 {% load static %}
 <head>
-    <!-- <link rel="stylesheet" href="{% static '/css/style.css' %}"> -->
-    <link rel="stylesheet" href="./../static/css/style.css"> 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<!-- <link rel="stylesheet" href="{% static '/css/style.css' %}"> -->
+<link rel="stylesheet" href="./../static/css/style.css"> 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script type='text/javascript' src="{% static '/js/ing_list.js' %}"></script>
 </head>
+
+<body>
+<div class="navbar">
+    {% block content %}
+    <a href="/">Home</a>
+    {% if user.is_authenticated %}
+        <li>Hi {{ user.username }}!</li>
+        <a href="{% url 'logout' %}">Log Out</a>
+        <input type="hidden" id="ings" value=" {{ user.ings }} ">
+        <input type="hidden" name='username' value=" {{ user.username }} ">
+    {% else %}
+        <a href="{% url 'login' %}">Log In</a>
+        <a href="/accounts/register">Create Account</a>
+    {% endif %}
+    {% endblock %}
+</div>
 <h1>
     pantree searched {{ num }} recipes and found these results:
 </h1>
