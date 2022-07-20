@@ -12,7 +12,7 @@
     {% block content %}
     <a href="/">Home</a>
     {% if user.is_authenticated %}
-        <li>Hello</li>
+        <!-- <li>Hello</li> -->
         <a href="{% url 'logout' %}">Log Out</a>
         <input type="hidden" id="ings" value=" {{ user.ings }} ">
         <input type="hidden" name='email' value=" {{ user.email }} ">

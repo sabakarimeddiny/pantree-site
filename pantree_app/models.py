@@ -46,6 +46,3 @@ class CustomUser(AbstractUser):
 
     def __str__(self):
         return self.email
-
-# class User(AbstractUser):
-#     ings = models.CharField(max_length=10000)
