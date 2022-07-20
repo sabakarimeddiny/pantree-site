@@ -244,3 +244,17 @@ input[type=url]:hover {
   cursor: pointer;
 }
 
+form a input {
+  background-color: DodgerBlue;
+  text-decoration: none;
+  color: #fff;
+  border-radius: 10px;
+  border-color: #2a2a2e;
+  padding: 7px;
+  width: 45%;
+  margin-left: 5px;
+}
+form a input:hover {
+  background-color: DodgerBlue;
+  cursor: pointer;
+}
