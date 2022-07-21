@@ -1,13 +1,13 @@
 $(document).ready(function() {
 
-    $('button[id=ing_button]').click(function () {
+    $('button[id=add_button]').click(function () {
 		var toAdd=$('input[id=ingForm_ingredients]').val();
 		$('<div class="removable-list-item">'+toAdd+'</div>').appendTo('.list[id=ing]');
         $('input[id=ingForm_ingredients]').val('');
     });
 
-    $('button[id=must_have_button]').click(function () {
-		var toAdd=$('input[id=ingForm_must_have_ings]').val();
+    $('button[id=require_button]').click(function () {
+		var toAdd=$('input[id=ingForm_ingredients]').val();
 		$('<div class="removable-list-item">'+toAdd+'</div>').appendTo('.list[id=must_have]');
         $('input[id=ingForm_must_have_ings]').val('');
     });
@@ -47,7 +47,7 @@ $(document).ready(function() {
 
     $('input[id=ingForm_ingredients], select').bind('keyup', function(e) {
         if(e.which == 13) {
-            $('button[id=ing_button]').click();
+            $('button[id=add_button]').click();
         }
     });
 
@@ -61,7 +61,7 @@ $(document).ready(function() {
     $.each(array,function(i) {
         // alert(array[i]);
         $('input[id=ingForm_ingredients]').val(array[i]);
-        $('button[id=ing_button]').click();
+        $('button[id=add_button]').click();
      });
 
 });

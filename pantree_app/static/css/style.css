@@ -3,6 +3,7 @@ form {
     /* justify-content: center; */
     /* text-align: center; */
     /* margin: 0 auto; */
+    width: 100%;
   }
 body {
   background-color: #2a2a2e;
@@ -106,6 +107,7 @@ a {
   left: 50%;
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
+  width: 33%;
 }
 
 label { 
@@ -142,8 +144,10 @@ h4 {
 }
   
 .grid {
-    display: table-row;  
+    display: inline-block;  
     text-align: center;
+    margin: 5px;
+    width: 100%;
   }
 
 button{
@@ -152,6 +156,9 @@ button{
   background-color: DodgerBlue;
   color: #fff;
   border-color: #bdc1c6;
+  margin: 3px;
+  position: relative;
+  /* left: 25%; */
 }
 
 button:hover{
@@ -165,6 +172,7 @@ button:hover{
     border-radius: 10px;
     /* width: 300px; */
     display: table-cell;
+    z-index: 99;
   }
 
 .autocomplete-item {
@@ -219,6 +227,22 @@ button:hover{
   padding: 7px;
 }
 
+.center form a {
+  border-radius: 10px;
+  border-width: 2px;
+  border-color: #bdc1c635;
+  padding: 7px;
+  position: relative;
+}
+
+
+input[name=ingredients]{
+  /* margin-left: 5px; */
+  /* width: 100%; */
+  position: relative;
+  /* left: 25%; */
+}
+
 input[type=submit] {
   background-color: DodgerBlue;
   color: #fff;
@@ -228,6 +252,7 @@ input[type=submit] {
   width: 45%;
   margin-left: 5px;
 }
+
 input[type=submit]:hover {
   cursor: pointer;
 }
@@ -301,4 +326,67 @@ form a input:hover {
   bottom: 100%;
   text-align: center;
   /* display: table-caption; */
+}
+
+.ing_list_box{
+  background-color: #343437;
+  position: fixed;
+  width: 50%;
+  height: 50%;
+  bottom: 0%;
+  left: 25%;
+  border-radius: 7px;
+  z-index: -1;
+}
+
+.ing_list_box input {
+
+  background-color: DodgerBlue;
+  color: #fff;
+  border-radius: 10px;
+  border-color: #bdc1c635;
+  padding: 7px;
+  width: 45%;
+  margin-left: 5px;
+  transform: rotate(270deg);
+}
+
+.ing_list_box button {
+  background-color: DodgerBlue;
+  color: #fff;
+  border-radius: 10px;
+  border-color: #bdc1c635;
+  padding: 7px;
+  width: 45%;
+  margin-left: 5px;
+  transform: rotate(270deg);
+}
+
+.sidebar button[id=clear] {
+  position: absolute;
+  left: 85%;
+  top: 36%;
+}
+
+.sidebar .list .arrow-box{
+  position: absolute;
+  left: 92%;
+  top: 50%;
+}
+
+.list[id=ing] {
+  position: absolute;
+  width: 50%;
+  height: 100%;
+  left: 0%;
+  top: 0%;
+  border-right: 1px solid #bdc1c665;
+}
+
+.list[id=must_have] {
+  position: absolute;
+  width: 50%;
+  height: 100%;
+  left: 50%;
+  top: 0%;
 }

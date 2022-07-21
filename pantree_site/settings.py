@@ -28,8 +28,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['Pantree-env-3.eba-encwvp4m.us-east-1.elasticbeanstalk.com',
                  'www.pantree.me',
-                 '172.31.39.227',
-                 '172.31.88.161',
+                 '172.31.23.223',
                  '127.0.0.1']
 
 

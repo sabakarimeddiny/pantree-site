@@ -36,31 +36,42 @@
     <div class="grid">
         <label> {{ form.ingredients.label}}  </label> &nbsp;
         {{ form.ingredients }}
-        <button id = "ing_button" type="button">+</button>
+        <button id = "add_button" type="button">Add</button>
+        <button id = "require_button" type="button">Require</button>
+        {{ form.must_have_ings.as_hidden }}
     </div>
     <br>
-    <div class="grid">
+    <!-- <div class="grid">
         <label> {{ form.must_have_ings.label}}  </label> &nbsp;
         {{ form.must_have_ings }}
         <button id = "must_have_button" type="button">+</button>
     </div>
-    <br>
+    <br> -->
     <div class="grid">
         <label> </label>
         <input class="input" name='submit' type="submit" value="Submit">  
-{% block getuser %}
-{% if user.is_authenticated %}
-    <input class="input" name='submitAndSave' type="submit" value="Submit and Save"> 
-    <input type="hidden" name='email' value=" {{ user.email }} ">
-{% else %}
-    <a href="{% url 'login' %}"> <input class="input" type="button" value="Log in"></a>  
-{% endif %}
-{% endblock %}
-<script type = "text/javascript" src="./../static/js/autocomplete.js"></script> 
+        {% block getuser %}
+        {% if user.is_authenticated %}
+            <input class="input" name='submitAndSave' type="submit" value="Submit and Save"> 
+            <input type="hidden" name='email' value=" {{ user.email }} ">
+        {% else %}
+            <a href="{% url 'login' %}"> <input class="input" type="button" value="Log in"></a>  
+        {% endif %}
+        {% endblock %}
+        <script type = "text/javascript" src="./../static/js/autocomplete.js"></script> 
+    </div>  
 </div>
+<div class = "ing_list_box">
+    <div class='list' id="ing">
+        <h4>Your Ingredients</h4>
+    </div>
+    <div class='list' id="must_have">
+        <h4>Your Requirements</h4>
+    </div>
 </div>
+
 </form>
-<form method="get" autocomplete="off" name='checkbox'>
+<!-- <form method="get" autocomplete="off" name='checkbox'>
 {% csrf_token %}
 <div class='sidebar'>
 <div class='list' id="ing">
@@ -73,12 +84,12 @@
     </div>  
 </div>
 <button id="clear" type="button">Clear</button>
-<!-- {% block savedata %}
+{% block savedata %}
 {% if user.is_authenticated %}
     <input class="input" name='save' type="submit" value="Save">
     <input type="hidden" name='email' value=" {{ user.email }} ">
 {% endif %}
-{% endblock %} -->
+{% endblock %}
 </div>
-</form>
+</form> -->
 </body>
