@@ -22,15 +22,6 @@ class NYT(Domain):
         except IndexError:
             return True
         return not b
-    
-    def get_title(self, URL):
-        page = requests.get(URL)
-        soup = BeautifulSoup(page.content, "html.parser")
-        results = soup.find_all("h1", class_="contenttitle_contentTitle__36j2i header_recipe-name__PkKYu")[0].text.strip()
-        return remove_special_char(results)
-
-    def get_time(self):
-        pass
 
     def get_page_links_to_recipes(self, URL, depth = 0):
         page = requests.get(URL)
@@ -39,10 +30,12 @@ class NYT(Domain):
         links = list(set([x for x in links if re.match(self.re_domain_substring,x) is not None]))
         links = [self.domain_prefix + x for x in links]
         links = [link.split('?')[0] for link in links if self.is_page(link)]
-        links = [link for link in links if not self.db.check_exists(link)]
+        # links = [link for link in links if not self.db.check_exists(link)]
         for link in links:
+            if self.db.check_exists(link):
+                continue
             try:
-                recipe = Recipe(self.get_title(link), 0, link, self.get_raw_ingredient_strings(link))
+                recipe = Recipe(self.get_title(link), self.get_img(link), link, self.get_raw_ingredient_strings(link))
             except IndexError:
                 continue
             recipe.get_ingredients()

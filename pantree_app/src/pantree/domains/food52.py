@@ -17,12 +17,6 @@ class food52(Domain):
             return True
         return False
     
-    def get_title(self, URL):
-        page = requests.get(URL)
-        soup = BeautifulSoup(page.content, "html.parser")
-        results = soup.find_all("h1", class_="recipe__title")[0].text.strip().replace('\xa0',' ')
-        return remove_special_char(results)
-    
     def get_page_links_to_recipes(self, URL, depth = 0, write = True):
         page = requests.get(URL)
         soup = BeautifulSoup(page.content, "html.parser")
@@ -30,10 +24,12 @@ class food52(Domain):
         links = list(set([x for x in links if re.match(self.re_domain_substring,x) is not None]))
         links = ['https://food52.com' + x for x in links]
         links = [link for link in links if self.is_page(link)]
-        links = [link for link in links if not self.db.check_exists(link)]
+        # links = [link for link in links if not self.db.check_exists(link)]
         for link in links:
+            if self.db.check_exists(link):
+                continue
             try:
-                recipe = Recipe(self.get_title(link), 0, link, self.get_raw_ingredient_strings(link))
+                recipe = Recipe(self.get_title(link), self.get_img(link), link, self.get_raw_ingredient_strings(link))
             except IndexError:
                 continue
             recipe.get_ingredients()

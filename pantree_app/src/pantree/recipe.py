@@ -5,9 +5,9 @@ from . import tree
 
 class Recipe:
 
-    def __init__(self, title, time, url, ingredients):
+    def __init__(self, title, img, url, ingredients):
         self.title = title
-        self.time = time
+        self.img = img
         self.url = url
         self.ingredients = ingredients
     
@@ -26,11 +26,11 @@ class recipeDB:
         self.ingredients = set({})
 
     def create_table(self):
-        self.cur.execute("CREATE VIRTUAL TABLE recipes USING FTS5(title, time, url, ingredients)")
+        self.cur.execute("CREATE VIRTUAL TABLE recipes USING FTS5(title, img, url, ingredients)")
     
     def insert(self, recipe):
         self.cur.execute("INSERT INTO recipes VALUES (?,?,?,?)",
-                         (recipe.title, recipe.time, recipe.url, recipe.ingredients))
+                         (recipe.title, recipe.img, recipe.url, recipe.ingredients))
         self.save()
 
     def count(self):
@@ -38,7 +38,7 @@ class recipeDB:
         return self.cur.fetchone()[0]
     
     def search(self, ingredient_list, must_have_list):
-        query = "SELECT title, url FROM recipes "
+        query = "SELECT title, img, url FROM recipes "
         if ingredient_list != [] or must_have_list != []:
             query += "WHERE ingredients MATCH '("
             if ingredient_list != []:
@@ -51,7 +51,6 @@ class recipeDB:
             if must_have_list != []:
                 query += ")'"
             query += " ORDER BY bm25(recipes)"
-        print(query)
         return self.cur.execute(query).fetchall()
     
     def get_ingredients(self):
@@ -81,8 +80,7 @@ class recipeBank:
 
     def __init__(self):
         self.data = None
-        self.urls = None
-        self.titles = None
+        self.urls = None        
         self.ingredients = None
         
 

@@ -1,3 +1,5 @@
+import requests
+from bs4 import BeautifulSoup
 from ..recipe import recipeDB
 
 class Domain:
@@ -12,8 +14,15 @@ class Domain:
     def is_page(self):
         pass
 
-    def get_title(self):
-        pass
+    def get_title(self, URL):
+        page = requests.get(URL)
+        soup = BeautifulSoup(page.content, "html.parser")
+        return soup.find("meta", property='og:title')["content"]
+    
+    def get_img(self, URL):
+        page = requests.get(URL)
+        soup = BeautifulSoup(page.content, "html.parser")
+        return soup.find("meta", property='og:image')["content"]
 
     def get_time(self):
         pass

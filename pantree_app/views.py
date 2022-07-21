@@ -29,7 +29,8 @@ def get_ingredients(request):
                         sep_must_have_list)
             num = p.db.count()
             if len(p.rank) != 0:
-                return result(request, num, p.rank)
+                print(p.rank[:3])
+                return result(request, num, p.rank[:10])
             else:
                 return result(request, num, ['pantree could not find anything :('])
 
@@ -41,7 +42,7 @@ def get_ingredients(request):
 
 def result(request, num, rank):
     # return redirect(request, 'result_page', {'num': num, 'result' : rank})
-    return render(request, 'result.html', {'num': num, 'result' : rank})
+    return render(request, 'result.html', {'num': num, 'rank' : rank})
 
 def login(request):
     return render(request, 'login.html')

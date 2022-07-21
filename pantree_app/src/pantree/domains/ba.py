@@ -15,12 +15,6 @@ class bonAppetit(Domain):
         if URL.startswith(self.domain_prefix):
             return True
         return False
-    
-    def get_title(self, URL):
-        page = requests.get(URL)
-        soup = BeautifulSoup(page.content, "html.parser")
-        results = soup.find_all("h1", class_="BaseWrap-sc-TURhJ BaseText-fFzBQt SplitScreenContentHeaderHed-fxVOKs eTiIvU exAltS fOuMTo")[0].text.strip()
-        return remove_special_char(results)
 
     def get_page_links_to_recipes(self, URL, depth = 0):
         page = requests.get(URL)
@@ -35,10 +29,12 @@ class bonAppetit(Domain):
         links = fixed_links
         # links = list(set([x for x in links if re.match(self.re_domain_substring,x) is not None]))
         links = [link.split('#')[0] for link in links if self.is_page(link)]
-        links = [link for link in links if not self.db.check_exists(link)]
+        # links = [link for link in links if not self.db.check_exists(link)]
         for link in links:
+            if self.db.check_exists(link):
+                continue
             try:
-                recipe = Recipe(self.get_title(link), 0, link, self.get_raw_ingredient_strings(link))
+                recipe = Recipe(self.get_title(link), self.get_img(link), link, self.get_raw_ingredient_strings(link))
             except IndexError:
                 continue
             recipe.get_ingredients()
@@ -54,6 +50,9 @@ class bonAppetit(Domain):
         page = requests.get(URL)
         soup = BeautifulSoup(page.content, "html.parser")
         results = soup.find_all("div", class_="BaseWrap-sc-TURhJ BaseText-fFzBQt Description-dSNklj eTiIvU gBuuRN cZDSEe")
+        if results == []:
+            results = soup.find_all("div", class_="BaseWrap-sc-UABmB BaseText-fETRLB Description-dTsUqb hkSZSE kBLSTT gmvWnL")
+            
         ingredients = [ingredient.text.strip() for ingredient in results]
         ingredients = [x.split('\n')[-1] for x in ingredients]
         ingredients = self.filter_optionals(ingredients)
