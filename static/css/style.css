@@ -1,0 +1,304 @@
+form {
+    display: table;
+    /* justify-content: center; */
+    /* text-align: center; */
+    /* margin: 0 auto; */
+  }
+body {
+  background-color: #2a2a2e;
+  font-size: 16px;
+  font-family: arial,sans-serif;
+  color: #bdc1c6;
+}
+
+.sidebar{
+  background-color: #444447;
+  position: fixed;
+  width: 20%;
+  height: 80%;
+  top: 10%;
+  left: -19%;
+  border-radius: 5px;
+}
+
+.sidebar input {
+
+  background-color: DodgerBlue;
+  color: #fff;
+  border-radius: 10px;
+  border-color: #bdc1c635;
+  padding: 7px;
+  width: 45%;
+  margin-left: 5px;
+  transform: rotate(270deg);
+}
+
+.sidebar button {
+
+  background-color: DodgerBlue;
+  color: #fff;
+  border-radius: 10px;
+  border-color: #bdc1c635;
+  padding: 7px;
+  width: 45%;
+  margin-left: 5px;
+  transform: rotate(270deg);
+}
+
+.sidebar button[id=clear] {
+  position: absolute;
+  left: 85%;
+  top: 36%;
+}
+.sidebar input{
+  position: absolute;
+  left: 85%;
+  top: 64%;
+}
+
+.sidebar .list .arrow-box{
+  position: absolute;
+  left: 92%;
+  top: 50%;
+}
+
+.list[id=ing] {
+  position: absolute;
+  width: 50%;
+  height: 100%;
+  left: 0%;
+  top: 0%;
+  border-right: 1px solid #bdc1c665;
+}
+
+.list[id=must_have] {
+  position: absolute;
+  width: 50%;
+  height: 100%;
+  left: 50%;
+  top: 0%;
+}
+
+.removable-list-item {
+  position: static;
+  top: 0px;
+  margin-top: 4px;
+  font-family: arial,sans-serif;
+  color: #bdc1c6;
+  background-color: #904e9cb6;
+  border-radius: 5px;
+  padding: 5px;
+  margin-left: 5%;
+  width: 85%;
+}
+
+input[type=checkbox]{
+  width: auto;
+}
+
+a {
+  color: #ffffff;
+}
+.center {
+  margin: 0;
+  position: absolute;
+  top: 33%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+label { 
+  display: table-cell;
+}
+
+input { 
+  display: table-cell;
+  color: #ffffff;
+  background-color: #2a2a2e;
+  border-radius: 7px;
+  border-width: 0.5px;
+  border-color: #bdc1c65e;
+  width: 300px;
+  z-index: 1;
+}
+
+input:hover {
+  background-color: #444447;
+  /* cursor: pointer; */
+  /* border-color: #444447; */
+}
+
+input[type=text] {
+  padding: 7px;
+}
+
+h1 { 
+  text-align:center; 
+}
+
+h4 { 
+  text-align:center; 
+}
+  
+.grid {
+    display: table-row;  
+    text-align: center;
+  }
+
+button{
+  display: table-cell;
+  padding: 3px;
+  background-color: DodgerBlue;
+  color: #fff;
+  border-color: #bdc1c6;
+}
+
+button:hover{
+  cursor: pointer;
+}
+
+.autocomplete-items {
+    position: absolute;
+    /* box-shadow: 0px 0px 5px #aaaaaa; */
+    background-color: #444447;
+    border-radius: 10px;
+    /* width: 300px; */
+    display: table-cell;
+  }
+
+.autocomplete-item {
+    position: relative;
+    background-color: #444447;
+    text-align: left;
+    padding: 5px;
+    border-radius: 7px;
+    width: 300px;
+  }
+
+.autocomplete-item:hover {
+  background-color: #737373;
+  cursor: pointer;
+}
+
+.navbar {
+  overflow: hidden;
+  position: fixed; /* Set the navbar to fixed position */
+  top: 0; /* Position the navbar at the top of the page */
+  width: 100%; /* Full width */
+}
+
+.navbar a {
+  float: left;
+  display: block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.navbar li {
+  float: right;
+  display: block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.center form button {
+  border-radius: 10px;
+  border-color: #bdc1c635;
+  padding: 7px;
+}
+
+.center form input {
+  border-radius: 10px;
+  border-width: 2px;
+  border-color: #bdc1c635;
+  padding: 7px;
+}
+
+input[type=submit] {
+  background-color: DodgerBlue;
+  color: #fff;
+  border-radius: 10px;
+  border-color: #2a2a2e;
+  padding: 7px;
+  width: 45%;
+  margin-left: 5px;
+}
+input[type=submit]:hover {
+  cursor: pointer;
+}
+input[type=url] {
+  background-color: DodgerBlue;
+  color: #fff;
+  border-radius: 10px;
+  border-color: #2a2a2e;
+  padding: 7px;
+  width: 45%;
+  margin-left: 5px;
+}
+input[type=url]:hover {
+  cursor: pointer;
+}
+
+form a input {
+  background-color: DodgerBlue;
+  text-decoration: none;
+  color: #fff;
+  border-radius: 10px;
+  border-color: #2a2a2e;
+  padding: 7px;
+  width: 45%;
+  margin-left: 5px;
+}
+form a input:hover {
+  background-color: DodgerBlue;
+  cursor: pointer;
+}
+
+.link-preview-grid{
+  /* display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  grid-auto-rows: 100px; */
+  position: relative;
+  /* display: table; */
+  width: 100%;
+  /* height: 100%; */
+  /* margin: 5%; */
+  top: 0%;
+  left: 0%;
+}
+
+.link-preview {
+  position: relative;
+  display: inline-block;
+  /* border: 2px dotted #f2f2f2; */
+  padding: 5px;
+  width: 27%;
+  border-color: #f2f2f2;
+  background-color: #444447;
+  border-width: 10px;
+  border-radius: 7px;
+  padding: 7px;
+  margin: 20px;
+  /* width: 90%;
+  height: 100%; */
+}
+
+.link-preview img {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  /* max-height: 100%; */
+}
+
+.link-preview a {
+  /* position: relative; */
+  bottom: 100%;
+  text-align: center;
+  /* display: table-caption; */
+}

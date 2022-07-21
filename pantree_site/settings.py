@@ -29,6 +29,7 @@ DEBUG = True
 ALLOWED_HOSTS = ['Pantree-env-3.eba-encwvp4m.us-east-1.elasticbeanstalk.com',
                  'www.pantree.me',
                  '172.31.39.227',
+                 '172.31.88.161',
                  '127.0.0.1']
 
 
@@ -127,6 +128,7 @@ USE_TZ = True
 
 # STATIC_URL = 'static/'
 STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'static'
 STATICFILES_DIR = [
     BASE_DIR / "static",
     # BASE_DIR / "pantree_app/static",
