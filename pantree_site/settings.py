@@ -128,8 +128,8 @@ USE_TZ = True
 # STATIC_URL = 'static/'
 STATIC_URL = '/static/'
 STATICFILES_DIR = [
-    # BASE_DIR / "static",
-    BASE_DIR / "pantree_app/static",
+    BASE_DIR / "static",
+    # BASE_DIR / "pantree_app/static",
 ]
 
 
