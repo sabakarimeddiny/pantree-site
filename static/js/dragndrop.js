@@ -8,6 +8,7 @@ $(document).ready( function () {
         }
     });
 });
+
 $(document).on('mouseover', '.removable-list-item', function() {
     $(this).draggable({ 
         revert: 'invalid',
