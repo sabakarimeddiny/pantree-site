@@ -2,35 +2,35 @@ $(document).ready(function() {
 
     $('button[id=add_button]').click(function () {
 		var toAdd=$('input[id=ingForm_ingredients]').val();
-		$('<div class="removable-list-item">'+toAdd+'</div>').appendTo('.list[id=ing]');
+		$('<div class="removable-list-item"><i class="fas fa-ellipsis-v"></i><i class="fas fa-ellipsis-v"></i>&nbsp'+toAdd+'&nbsp<i class="fa-solid fa-xmark"></i></div>').appendTo('.list[id=ing]');
         $('input[id=ingForm_ingredients]').val('');
     });
 
     $('button[id=require_button]').click(function () {
 		var toAdd=$('input[id=ingForm_ingredients]').val();
-		$('<div class="removable-list-item">'+toAdd+'</div>').appendTo('.list[id=must_have]');
-        $('input[id=ingForm_must_have_ings]').val('');
+		$('<div class="removable-list-item"><i class="fas fa-ellipsis-v"></i><i class="fas fa-ellipsis-v"></i>&nbsp'+toAdd+'&nbsp<i class="fa-solid fa-xmark"></i></div>').appendTo('.list[id=must_have]');
+        $('input[id=ingForm_ingredients]').val('');
     });
 
     $('button[id=clear]').click(function () {
         $('.list[id=ing] .removable-list-item').remove();
     });
 
-    var timeout = false;
-    $("input, .sidebar, button").on({
-        mouseenter: function () {
-            $('.sidebar').animate({left:'0%'}, 1000); 
-        },
-        mouseleave: function () {
-            timeout = setTimeout( function() { 
-                $('.sidebar').animate({left:'-19%'}, 1000);
-            }, 2000);
-        },
-        mouseover: function (){
-            clearTimeout(timeout)
-            $('.sidebar').animate({left:'0%'}, 1000); 
-        }
-    });
+    // var timeout = false;
+    // $("input, .sidebar, button").on({
+    //     mouseenter: function () {
+    //         $('.sidebar').animate({left:'0%'}, 1000); 
+    //     },
+    //     mouseleave: function () {
+    //         timeout = setTimeout( function() { 
+    //             $('.sidebar').animate({left:'-19%'}, 1000);
+    //         }, 2000);
+    //     },
+    //     mouseover: function (){
+    //         clearTimeout(timeout)
+    //         $('.sidebar').animate({left:'0%'}, 1000); 
+    //     }
+    // });
 
     var timeout = false;
     $("form").on("submit", function () {
@@ -46,14 +46,14 @@ $(document).ready(function() {
     });
 
     $('input[id=ingForm_ingredients], select').bind('keyup', function(e) {
-        if(e.which == 13) {
+        if(e.which == 13 && !e.shiftKey) {
             $('button[id=add_button]').click();
         }
     });
 
-    $('input[id=ingForm_must_have_ings], select').bind('keyup', function(e) {
-        if(e.which == 13) {
-            $('button[id=must_have_button]').click();
+    $('input[id=ingForm_ingredients], select').bind('keyup', function(e) {
+        if(e.which == 13 && e.shiftKey) {
+            $('button[id=require_button]').click();
         }
     });
 
@@ -66,4 +66,6 @@ $(document).ready(function() {
 
 });
 
-$(document).on('click','.removable-list-item',function(){ $(this).remove(); });
+// $(document).on('click','.removable-list-item',function(){ $(this).remove(); });
+$(document).on('click','.fa-solid.fa-xmark',function(){ $(this).parent().remove(); });
+
