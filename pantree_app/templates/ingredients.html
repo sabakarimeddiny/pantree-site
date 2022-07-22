@@ -36,8 +36,8 @@
     <div class="grid">
         <label> {{ form.ingredients.label}}  </label> &nbsp;
         {{ form.ingredients }}
-        <button id = "add_button" type="button">Add</button>
-        <button id = "require_button" type="button">Require</button>
+        <button id = "add_button" type="button" title="could also press enter">Add</button>
+        <button id = "require_button" type="button" title="could also press shift+enter">Require</button>
         {{ form.must_have_ings.as_hidden }}
     </div>
     <br>
@@ -59,8 +59,14 @@
         {% endif %}
         {% endblock %}
         <script type = "text/javascript" src="./../static/js/autocomplete.js"></script> 
-        <button id="clear" type="button">Clear Below</button>
-        <button id="save" type="button">Save Below</button> 
+        <button id="clear" type="button" title="clears all the ingredients in the table below">Clear Below</button>
+        {% block savebutton %}
+        {% if user.is_authenticated %}
+            <button id="save" type="button" title="saves the ingredients below to your account">Save Below</button>
+        {% else %}
+            <a href="{% url 'login' %}">  <button id="save" type="button" title="saves the ingredients below to your account">Save Below</button></a>  
+        {% endif %}
+        {% endblock %} 
     </div> 
     
 </div>
