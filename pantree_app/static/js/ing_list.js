@@ -40,7 +40,6 @@ $(document).ready(function() {
         $('input[id=ingForm_ingredients]').val(textInput);
 
         var textInput = $('.list[id=must_have] .removable-list-item').map(function() {
-            alert($(this).text())
             return $(this).text();
         }).get().join(', ');
         $('input[id=ingForm_must_have_ings]').val(textInput);
