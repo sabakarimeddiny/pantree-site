@@ -160,7 +160,7 @@ button{
   border-color: #bdc1c6;
   margin: 3px;
   position: relative;
-  /* left: 25%; */
+  text-decoration: none;
 }
 
 button:hover{
@@ -175,6 +175,7 @@ button:hover{
     /* width: 300px; */
     display: table-cell;
     z-index: 99;
+    overflow: scroll;
   }
 
 .autocomplete-item {
@@ -383,7 +384,7 @@ form a input:hover {
 .list[id=ing] {
   position: absolute;
   width: 50%;
-  height: 100%;
+  height: auto;
   left: 0%;
   top: 0%;
   border-right: 1px solid #bdc1c665;
