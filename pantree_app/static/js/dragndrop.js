@@ -8,8 +8,9 @@ $(document).ready( function () {
         }
     });
 });
-$(document).on('mouseover', '.removable-list-item', function() {
-    $(this).draggable({ 
+
+$(document).on('mouseover', '.fas.fa-ellipsis-v', function() {
+    $(this).parent().draggable({ 
         revert: 'invalid',
         helper: 'clone',
         refreshPositions: true,

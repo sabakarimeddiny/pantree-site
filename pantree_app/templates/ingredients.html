@@ -59,11 +59,19 @@
         {% endif %}
         {% endblock %}
         <script type = "text/javascript" src="./../static/js/autocomplete.js"></script> 
-    </div>  
+        <button id="clear" type="button">Clear Below</button>
+        <button id="save" type="button">Save Below</button> 
+    </div> 
+    
 </div>
 <div class = "ing_list_box">
     <div class='list' id="ing">
         <h4>Your Ingredients</h4>
+    </div>
+    <div class="helper-text">
+        <h2>
+            <i class="fa fa-arrows-h"></i>
+        </h2>
     </div>
     <div class='list' id="must_have">
         <h4>Your Requirements</h4>

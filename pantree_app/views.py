@@ -30,7 +30,7 @@ def get_ingredients(request):
             num = p.db.count()
             if len(p.rank) != 0:
                 print(p.rank[:3])
-                return result(request, num, p.rank[:10])
+                return result(request, num, p.rank)
             else:
                 return result(request, num, ['pantree could not find anything :('])
 
