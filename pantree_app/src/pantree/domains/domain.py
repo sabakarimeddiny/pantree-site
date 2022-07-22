@@ -22,7 +22,10 @@ class Domain:
     def get_img(self, URL):
         page = requests.get(URL)
         soup = BeautifulSoup(page.content, "html.parser")
-        return soup.find("meta", property='og:image')["content"]
+        try:
+            return soup.find("meta", property='og:image')["content"]
+        except TypeError:
+            return ""
 
     def get_time(self):
         pass
