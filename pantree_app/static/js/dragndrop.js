@@ -9,8 +9,8 @@ $(document).ready( function () {
     });
 });
 
-$(document).on('mouseover', '.fas.fa-ellipsis-v', function() {
-    $(this).parent().draggable({ 
+$(document).on('mouseover', '.removable-list-item', function() {
+    $(this).draggable({ 
         revert: 'invalid',
         helper: 'clone',
         refreshPositions: true,
