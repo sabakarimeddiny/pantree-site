@@ -30,9 +30,9 @@ def get_ingredients(request):
             num = p.db.count()
             if len(p.rank) != 0:
                 print(p.rank[:3])
-                return result(request, num, p.rank)
+                return result(request, num, p.rank[:100])
             else:
-                return result(request, num, ['pantree could not find anything :('])
+                return result(request, num, [('pantree could not find anything :(','','')])
 
     # if a GET (or any other method) we'll create a blank form
     else:

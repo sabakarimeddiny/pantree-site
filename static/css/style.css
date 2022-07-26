@@ -397,3 +397,26 @@ form a input:hover {
   left: 50%;
   top: 0%;
 }
+button[id=register]{
+  position: relative;
+  left: 25%;
+}
+p[id=register]{
+  position: relative;
+  left: 25%;
+}
+
+button[id=login]{
+  position: relative;
+  left: 25%;
+}
+a[id=create]{
+  position: relative;
+  left: 25%;
+}
+
+.grid[id=login] p label{
+  position: fixed;
+  left: 0%;
+  text-align: right;
+}

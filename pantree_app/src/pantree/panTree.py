@@ -18,7 +18,7 @@ class panTree:
             ingredient_list.add(x)
         self.ingredient_list = [tree.find_ingredient(x) for x in ingredient_list]
         self.must_have_list = [tree.find_ingredient(x) for x in must_have_list]
-        self.ingredient_list = [x for x in self.ingredient_list if x is not None]
-        self.must_have_list = [x for x in self.must_have_list if x is not None]
+        self.ingredient_list = [x for x in self.ingredient_list if x is not None and x != '']
+        self.must_have_list = [x for x in self.must_have_list if x is not None and x != '']
         self.db = recipeDB(db)
         self.rank = self.db.search(self.ingredient_list, self.must_have_list)

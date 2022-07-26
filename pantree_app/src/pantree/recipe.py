@@ -51,6 +51,7 @@ class recipeDB:
             if must_have_list != []:
                 query += ")'"
             query += " ORDER BY bm25(recipes)"
+        print(query)
         return self.cur.execute(query).fetchall()
     
     def get_ingredients(self):

@@ -17,7 +17,10 @@ class Domain:
     def get_title(self, URL):
         page = requests.get(URL)
         soup = BeautifulSoup(page.content, "html.parser")
-        return soup.find("meta", property='og:title')["content"]
+        try:
+            return soup.find("meta", property='og:title')["content"]
+        except TypeError:
+            return ""
     
     def get_img(self, URL):
         page = requests.get(URL)

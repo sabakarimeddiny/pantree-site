@@ -23,9 +23,11 @@
 <div class="center">
   <h2>Log In</h2>
   <form method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">Log In</button> &nbsp;
-  <a href="/accounts/register">Create Account</a>
+    <div class="grid" id="login">
+      {% csrf_token %}
+      {{ form.as_p }}
+    </div>
+  <button type="submit" id="login">Log In</button> &nbsp;
+  <a href="/accounts/register" id="create">Create Account</a>
   </form>
 </div>

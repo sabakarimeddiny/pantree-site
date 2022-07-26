@@ -135,13 +135,16 @@ class Tree:
 
 
 def find_ingredient(string):
-    head = Tree(clean_ing_string(string))
-    head.generate_children()
-    ing = head.find_highest_food()
-    if ing == 'clove' and 'garlic' in string: #put this into a separate lex edit file
-        return 'garlic'
-    else:
-        return ing
+    string = clean_ing_string(string)
+    string = ' '.join(string.split('_'))
+    return string
+    # head = Tree(clean_ing_string(string))
+    # head.generate_children()
+    # ing = head.find_highest_food()
+    # if ing == 'clove' and 'garlic' in string: #put this into a separate lex edit file
+    #     return 'garlic'
+    # else:
+    #     return ing
 
     
 
