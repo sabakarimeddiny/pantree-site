@@ -1,14 +1,36 @@
 $(document).ready(function() {
 
+    // $('button[id=add_button]').click(function () {
+	// 	var toAdd=$('input[id=ingForm_ingredients]').val();
+	// 	$('<div class="removable-list-item"><i class="fas fa-ellipsis-v"></i><i class="fas fa-ellipsis-v"></i>&nbsp'+toAdd+'&nbsp<i class="fa-solid fa-xmark"></i></div>').appendTo('.list[id=ing]');
+    //     $('input[id=ingForm_ingredients]').val('');
+    // });
+
+    // $('button[id=require_button]').click(function () {
+	// 	var toAdd=$('input[id=ingForm_ingredients]').val();
+	// 	$('<div class="removable-list-item"><i class="fas fa-ellipsis-v"></i><i class="fas fa-ellipsis-v"></i>&nbsp'+toAdd+'&nbsp<i class="fa-solid fa-xmark"></i></div>').appendTo('.list[id=must_have]');
+    //     $('input[id=ingForm_ingredients]').val('');
+    // });
+
     $('button[id=add_button]').click(function () {
 		var toAdd=$('input[id=ingForm_ingredients]').val();
-		$('<div class="removable-list-item"><i class="fas fa-ellipsis-v"></i><i class="fas fa-ellipsis-v"></i>&nbsp'+toAdd+'&nbsp<i class="fa-solid fa-xmark"></i></div>').appendTo('.list[id=ing]');
+		$('<div class="removable-list-item"><i class="fas fa-ellipsis-v"></i><i class="fas fa-ellipsis-v"></i>&nbsp'+toAdd+'&nbsp<i class="fa-solid fa-xmark"></i></div>').draggable({ 
+            revert: 'invalid',
+            helper: 'clone',
+            refreshPositions: true,
+            opacity: 0.5,
+        }).appendTo('.list[id=ing]');
         $('input[id=ingForm_ingredients]').val('');
     });
 
     $('button[id=require_button]').click(function () {
 		var toAdd=$('input[id=ingForm_ingredients]').val();
-		$('<div class="removable-list-item"><i class="fas fa-ellipsis-v"></i><i class="fas fa-ellipsis-v"></i>&nbsp'+toAdd+'&nbsp<i class="fa-solid fa-xmark"></i></div>').appendTo('.list[id=must_have]');
+		$('<div class="removable-list-item"><i class="fas fa-ellipsis-v"></i><i class="fas fa-ellipsis-v"></i>&nbsp'+toAdd+'&nbsp<i class="fa-solid fa-xmark"></i></div>').draggable({ 
+            revert: 'invalid',
+            helper: 'clone',
+            refreshPositions: true,
+            opacity: 0.5,
+        }).appendTo('.list[id=must_have]');
         $('input[id=ingForm_ingredients]').val('');
     });
 

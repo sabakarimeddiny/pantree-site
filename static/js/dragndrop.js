@@ -10,15 +10,6 @@ $(document).ready( function () {
     });
 });
 
-$(document).on('mouseover', '.removable-list-item', function() {
-    $(this).draggable({ 
-        revert: 'invalid',
-        helper: 'clone',
-        refreshPositions: true,
-        opacity: 0.5,
-    });
-});
-
 $(document).on('mouseup', '.removable-list-item', function() {
     $(this).css({position: 'static'})
 });
