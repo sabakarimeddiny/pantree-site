@@ -26,10 +26,13 @@ SECRET_KEY = 'django-insecure-r#v&@9v_6*6h7gp++8ort$fkr(6ft+qeo+2-xq3d4qj7xj@fzt
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['Pantree-env-3.eba-encwvp4m.us-east-1.elasticbeanstalk.com',
+ALLOWED_HOSTS = ['Pantree-env-1.eba-encwvp4m.us-east-1.elasticbeanstalk.com',
                  'www.pantree.me',
-                 '172.31.23.223',
-                 '127.0.0.1']
+                 '172.31.30.13',
+                 '172.31.87.28',
+                 '172.31.86.44',
+                 '127.0.0.1',
+                 '127.0.0.1:8000']
 
 
 # Application definition
@@ -90,21 +93,21 @@ WSGI_APPLICATION = 'pantree_site.wsgi.application'
 # else:
 
 # local database
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': str(BASE_DIR / 'db.sqlite3'),
-#     }
-# }
-# Production database
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'ebdb',
-        'USER': 'sabakarimeddiny',
-        'PASSWORD': 'saba1294',
-        'HOST': 'aa18m77akxru1c5.cu3o6orh213n.us-east-1.rds.amazonaws.com',
-        'PORT': '3306',}}
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': str(BASE_DIR / 'db.sqlite3'),
+    }
+}
+# Production database
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'ebdb',
+#         'USER': 'sabakarimeddiny',
+#         'PASSWORD': 'saba1294',
+#         'HOST': 'aa18m77akxru1c5.cu3o6orh213n.us-east-1.rds.amazonaws.com',
+#         'PORT': '3306',}}
 
 
 # Custom User
