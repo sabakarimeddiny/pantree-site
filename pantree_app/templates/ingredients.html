@@ -3,6 +3,7 @@
 <link rel="stylesheet" href="{% static '/css/style.css' %}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
 <script type='text/javascript' src="{% static '/js/ing_list.js' %}"></script>
@@ -30,44 +31,37 @@
 <h1>
     pantree
 </h1>
-<br>
 <form method="post" autocomplete="off" name='checkbox'>
     {% csrf_token %}
-    <div class="grid">
-        <label> {{ form.ingredients.label}}  </label> &nbsp;
-        {{ form.ingredients }}
-        <button id = "add_button" type="button" title="could also press enter">Add</button>
-        <button id = "require_button" type="button" title="could also press shift+enter">Require</button>
-        {{ form.must_have_ings.as_hidden }}
-    </div>
-    <br>
+    <label> {{ form.ingredients.label}}  </label> &nbsp;
+    {{ form.ingredients }}
+    <button id = "add_button" type="button" title="could also press enter">Add</button>
+    <button id = "require_button" type="button" title="could also press shift+enter">Require</button>
+    {{ form.must_have_ings.as_hidden }}
     <!-- <div class="grid">
         <label> {{ form.must_have_ings.label}}  </label> &nbsp;
         {{ form.must_have_ings }}
         <button id = "must_have_button" type="button">+</button>
     </div>
     <br> -->
-    <div class="grid">
-        <label> </label>
-        <input class="input" name='submit' type="submit" value="Submit">  
-        {% block getuser %}
-        {% if user.is_authenticated %}
-            <input class="input" name='submitAndSave' type="submit" value="Submit and Save"> 
-            <input type="hidden" name='email' value=" {{ user.email }} ">
-        {% else %}
-            <a href="{% url 'login' %}"> <input class="input" type="button" value="Log in"></a>  
-        {% endif %}
-        {% endblock %}
-        <script type = "text/javascript" src="./../static/js/autocomplete.js"></script> 
-        <button id="clear" type="button" title="clears all the ingredients in the table below">Clear Below</button>
-        {% block savebutton %}
-        {% if user.is_authenticated %}
-            <button id="save" type="button" title="saves the ingredients below to your account">Save Below</button>
-        {% else %}
-            <a href="{% url 'login' %}">  <button id="save" type="button" title="saves the ingredients below to your account">Save Below</button></a>  
-        {% endif %}
-        {% endblock %} 
-    </div> 
+    <input class="input" name='submit' type="submit" value="Submit">  
+    {% block getuser %}
+    {% if user.is_authenticated %}
+        <input class="input" name='submitAndSave' type="submit" value="Submit and Save"> 
+        <input type="hidden" name='email' value=" {{ user.email }} ">
+    {% else %}
+        <a href="{% url 'login' %}"> <input class="input" type="button" value="Log in"></a>  
+    {% endif %}
+    {% endblock %}
+    <script type = "text/javascript" src="./../static/js/autocomplete.js"></script> 
+    <button id="clear" type="button" title="clears all the ingredients in the table below">Clear Below</button>
+    {% block savebutton %}
+    {% if user.is_authenticated %}
+        <button id="save" type="button" title="saves the ingredients below to your account">Save Below</button>
+    {% else %}
+        <a href="{% url 'login' %}">  <button id="save" type="button" title="saves the ingredients below to your account">Save Below</button></a>  
+    {% endif %}
+    {% endblock %} 
     
 </div>
 <div class = "ing_list_box">
