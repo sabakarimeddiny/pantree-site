@@ -14,6 +14,7 @@ $(document).ready(function() {
 
     $('button[id=clear]').click(function () {
         $('.list[id=ing] .removable-list-item').remove();
+        $('.list[id=must_have] .removable-list-item').remove();
     });
 
     // var timeout = false;
