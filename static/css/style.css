@@ -122,11 +122,15 @@ input:hover {
   /* cursor: pointer; */
   /* border-color: #444447; */
 }
-input{
-  width: 100%;
-}
+
 input[type=text] {
   padding: 7px;
+  width: 100%;
+}
+
+input[type=password] {
+  padding: 7px;
+  width: 100%;
 }
 
 h1 { 
@@ -134,7 +138,8 @@ h1 {
   text-align:center; 
 }
 h2 { 
-  text-align:center; 
+  text-align:center;
+  font-size: 2vw; 
 }
 h4 { 
   text-align:center; 
@@ -298,22 +303,8 @@ button:hover{
 }
 
 .center form a {
-  /* border-radius: 10px;
-  border-width: 2px;
-  border-color: #bdc1c635;
-  padding: 7px;
-  position: relative; */
-  /* background-color: #303134; */
-  border: 1px solid #303134;
-  border-radius: 4px;
   color: #e8eaed;
   font-family: arial,sans-serif;
-  /* font-size: 14px;
-  margin: 11px 4px;
-  padding: 0 16px;
-  line-height: 27px;
-  height: 36px;
-  min-width: 54px; */
   text-align: center;
   cursor: pointer;
   user-select: none;
@@ -412,10 +403,10 @@ form a input {
 .ing_list_box{
   background-color: #343437;
   position: relative;
-  width: 80%;
+  width: 100%;
   height: 50%;
   bottom: 0%;
-  left: 10%;
+  /* left: 10%; */
   border-radius: 7px;
   z-index: 1;
   /* min-height: 365px;
