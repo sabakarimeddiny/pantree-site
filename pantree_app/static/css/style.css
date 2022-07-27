@@ -1,5 +1,4 @@
 form {
-    display: table;
     /* justify-content: center; */
     /* text-align: center; */
     /* margin: 0 auto; */
@@ -47,19 +46,19 @@ body {
 } */
 
 .sidebar input{
-  position: absolute;
+  position: relative;
   left: 85%;
   top: 64%;
 }
 
 .sidebar .list .arrow-box{
-  position: absolute;
+  position: relative;
   left: 92%;
   top: 50%;
 }
 
 .list[id=ing] {
-  position: absolute;
+  position: relative;
   width: 50%;
   height: 100%;
   left: 0%;
@@ -68,7 +67,7 @@ body {
 }
 
 .list[id=must_have] {
-  position: absolute;
+  position: relative;
   width: 50%;
   height: 100%;
   left: 50%;
@@ -76,7 +75,7 @@ body {
 }
 
 .removable-list-item {
-  position: static;
+  position: relative;
   top: 0px;
   margin-top: 4px;
   font-family: arial,sans-serif;
@@ -87,6 +86,7 @@ body {
   margin-left: 5%;
   /* width: 85%; */
   text-align: center;
+  z-index: 10;
   display: inline-block;
 }
 .removable-list-item:hover {
@@ -101,28 +101,20 @@ a {
   color: #ffffff;
 }
 .center {
-  margin: 0;
-  position: absolute;
-  top: 33%;
-  left: 50%;
-  -ms-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-  width: 33%;
+  margin: 0 auto;
+  width: calc(632px + 8px);
+  padding-top: 6px;
+  width: auto;
+  max-width: 584px;
+  position: relative;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  padding: 20px;
 }
+
 
 label { 
   display: table-cell;
-}
-
-input { 
-  display: table-cell;
-  color: #ffffff;
-  background-color: #2a2a2e;
-  border-radius: 7px;
-  border-width: 0.5px;
-  border-color: #bdc1c65e;
-  width: 300px;
-  z-index: 1;
 }
 
 input:hover {
@@ -130,12 +122,15 @@ input:hover {
   /* cursor: pointer; */
   /* border-color: #444447; */
 }
-
+input{
+  width: 100%;
+}
 input[type=text] {
   padding: 7px;
 }
 
 h1 { 
+  margin: 35px;
   text-align:center; 
 }
 h2 { 
@@ -146,7 +141,7 @@ h4 {
 }
   
 .grid {
-    display: inline-block;  
+    display: block;  
     text-align: center;
     margin: 5px;
     width: 100%;
@@ -173,9 +168,10 @@ button:hover{
     background-color: #444447;
     border-radius: 10px;
     /* width: 300px; */
-    display: table-cell;
     z-index: 99;
-    overflow: scroll;
+    /* overflow: scroll; */
+    /* position: relative; */
+    margin-top: -120px;
   }
 
 .autocomplete-item {
@@ -193,10 +189,9 @@ button:hover{
 }
 
 .navbar {
-  overflow: hidden;
-  position: fixed; /* Set the navbar to fixed position */
-  top: 0; /* Position the navbar at the top of the page */
-  width: 100%; /* Full width */
+  display: flex;
+  align-items: center;
+  padding: 6px;
 }
 
 .navbar a {
@@ -218,24 +213,110 @@ button:hover{
 }
 
 .center form button {
+  background-color: #303134;
+  border: 1px solid #303134;
+  border-radius: 4px;
+  color: #e8eaed;
+  font-family: arial,sans-serif;
+  font-size: 14px;
+  margin: 11px 4px;
+  padding: 0 16px;
+  line-height: 27px;
+  height: 36px;
+  min-width: 54px;
+  text-align: center;
+  cursor: pointer;
+  user-select: none;
+}
+
+.center form input[name=ingredients] {
   border-radius: 10px;
+  border-width: 2px;
   border-color: #bdc1c635;
   padding: 7px;
+  display: flex;
+  z-index: 3;
+  height: 44px;
+  background: #202124;
+  border: 1px solid #5f6368;
+  box-shadow: none;
+  border-radius: 24px;
+  margin: 0 auto;
+  /* width: calc(632px + 6px); */
+  width: 100%;
+  max-width: 584px;
+}
+.center form input[name=submit] {
+  background-color: #303134;
+  border: 1px solid #303134;
+  border-radius: 4px;
+  color: #e8eaed;
+  font-family: arial,sans-serif;
+  font-size: 14px;
+  margin: 11px 4px;
+  padding: 0 16px;
+  line-height: 27px;
+  height: 36px;
+  min-width: 54px;
+  text-align: left;
+  cursor: pointer;
+  user-select: none;
 }
 
 .center form input {
-  border-radius: 10px;
-  border-width: 2px;
-  border-color: #bdc1c635;
-  padding: 7px;
+  background-color: #303134;
+  border: 1px solid #303134;
+  border-radius: 4px;
+  color: #e8eaed;
+  font-family: arial,sans-serif;
+  font-size: 14px;
+  margin: 11px 4px;
+  padding: 0 16px;
+  line-height: 27px;
+  height: 36px;
+  min-width: 54px;
+  text-align: left;
+  cursor: pointer;
+  user-select: none;
+}
+
+.center form a input {
+  background-color: #303134;
+  border: 1px solid #303134;
+  border-radius: 4px;
+  color: #e8eaed;
+  font-family: arial,sans-serif;
+  font-size: 14px;
+  margin: 11px 4px;
+  padding: 0 16px;
+  line-height: 27px;
+  height: 36px;
+  min-width: 54px;
+  text-align: center;
+  cursor: pointer;
+  user-select: none;
 }
 
 .center form a {
-  border-radius: 10px;
+  /* border-radius: 10px;
   border-width: 2px;
   border-color: #bdc1c635;
   padding: 7px;
-  position: relative;
+  position: relative; */
+  /* background-color: #303134; */
+  border: 1px solid #303134;
+  border-radius: 4px;
+  color: #e8eaed;
+  font-family: arial,sans-serif;
+  /* font-size: 14px;
+  margin: 11px 4px;
+  padding: 0 16px;
+  line-height: 27px;
+  height: 36px;
+  min-width: 54px; */
+  text-align: center;
+  cursor: pointer;
+  user-select: none;
 }
 
 
@@ -259,6 +340,7 @@ input[type=submit] {
 input[type=submit]:hover {
   cursor: pointer;
 }
+
 input[type=url] {
   background-color: DodgerBlue;
   color: #fff;
@@ -281,10 +363,6 @@ form a input {
   padding: 7px;
   width: 45%;
   margin-left: 5px;
-}
-form a input:hover {
-  background-color: DodgerBlue;
-  cursor: pointer;
 }
 
 .link-preview-grid{
@@ -333,14 +411,18 @@ form a input:hover {
 
 .ing_list_box{
   background-color: #343437;
-  position: fixed;
-  width: 50%;
+  position: relative;
+  width: 80%;
   height: 50%;
   bottom: 0%;
-  left: 25%;
+  left: 10%;
   border-radius: 7px;
-  z-index: -1;
-  overflow: scroll;
+  z-index: 1;
+  /* min-height: 365px;
+  overflow-y: auto; */
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 
@@ -376,7 +458,7 @@ form a input:hover {
 }
 
 .sidebar .list .arrow-box{
-  position: absolute;
+  position: relative;
   left: 92%;
   top: 50%;
 }
@@ -384,7 +466,7 @@ form a input:hover {
 .list[id=ing] {
   position: absolute;
   width: 50%;
-  height: auto;
+  height: 100%;
   left: 0%;
   top: 0%;
   border-right: 1px solid #bdc1c665;
