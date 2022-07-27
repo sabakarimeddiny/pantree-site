@@ -6,6 +6,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
+<!-- <script src="http://code.jquery.com/jquery.min.js"></script>
+<script src="http://code.jquery.com/ui/1.8.17/jquery-ui.min.js"></script> -->
+<script type='text/javascript' src="{% static '/js/touch_punch.js' %}"></script>
 <script type='text/javascript' src="{% static '/js/ing_list.js' %}"></script>
 <script type='text/javascript' src="{% static '/js/dragndrop.js' %}"></script>
 <script type='text/javascript' src="{% static '/js/link_preview.js' %}"></script>
@@ -35,15 +38,22 @@
     {% csrf_token %}
     <label> {{ form.ingredients.label}}  </label> &nbsp;
     {{ form.ingredients }}
+    {{ form.must_have_ings.as_hidden }}
     <button id = "add_button" type="button" title="could also press enter">Add</button>
     <button id = "require_button" type="button" title="could also press shift+enter">Require</button>
-    {{ form.must_have_ings.as_hidden }}
+    <button id="clear" type="button" title="clears all the ingredients in the table below">Clear Below</button>
+    {% block savebutton %}
+    {% if user.is_authenticated %}
+        <input class="input" type="button" title="saves the ingredients below to your account" value="Save Below">
+    {% endif %}
+    {% endblock %} 
     <!-- <div class="grid">
         <label> {{ form.must_have_ings.label}}  </label> &nbsp;
         {{ form.must_have_ings }}
         <button id = "must_have_button" type="button">+</button>
     </div>
     <br> -->
+    <br>
     <input class="input" name='submit' type="submit" value="Submit">  
     {% block getuser %}
     {% if user.is_authenticated %}
@@ -54,14 +64,7 @@
     {% endif %}
     {% endblock %}
     <script type = "text/javascript" src="./../static/js/autocomplete.js"></script> 
-    <button id="clear" type="button" title="clears all the ingredients in the table below">Clear Below</button>
-    {% block savebutton %}
-    {% if user.is_authenticated %}
-        <button id="save" type="button" title="saves the ingredients below to your account">Save Below</button>
-    {% else %}
-        <a href="{% url 'login' %}">  <button id="save" type="button" title="saves the ingredients below to your account">Save Below</button></a>  
-    {% endif %}
-    {% endblock %} 
+    
     
 </div>
 <div class = "ing_list_box">
