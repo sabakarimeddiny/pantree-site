@@ -281,7 +281,7 @@ button:hover{
   height: 36px;
   min-width: 54px;
   text-align: left;
-  cursor: pointer;
+  /* cursor: pointer; */
   user-select: none;
 }
 
