@@ -19,7 +19,7 @@ class RecipeSpidersPipeline(object):
 
     # Take the item and put it in database - do not allow duplicates
     def process_item(self, item, spider):
-        self.cursor.execute("select * from recipes where url=?", item['url'])
+        self.cursor.execute("select * from recipes where url=?", (item['url'],))
         result = self.cursor.fetchone()
         if result:
             pass
