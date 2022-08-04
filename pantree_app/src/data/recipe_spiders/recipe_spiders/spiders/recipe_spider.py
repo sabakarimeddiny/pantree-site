@@ -1,4 +1,6 @@
 import scrapy
+from scrapy.spiders import Rule
+from scrapy.linkextractors import LinkExtractor
 from recipe_spiders.items import RecipeSpidersItem
 
 class NYTSpider(scrapy.Spider):
@@ -15,7 +17,7 @@ class NYTSpider(scrapy.Spider):
         recipe = RecipeSpidersItem()
         recipe['title'] = response.xpath("//meta[@property='og:title']/@content").extract()[0]
         recipe['img'] = response.xpath("//meta[@property='og:image']/@content").extract()[0]
-        recipe['url'] = response.request.url.split('#')[0].split('&')[0]
+        recipe['url'] = response.request.url.split('#')[0].split('&')[0].split('?')[0]
         recipe['ings'] = ",".join([x.strip() for x in response.xpath("//span[@class='ingredient-name']/text()").extract()])
         if recipe['ings'] != '':
             yield recipe
@@ -38,7 +40,7 @@ class Food52Spider(scrapy.Spider):
         recipe = RecipeSpidersItem()
         recipe['title'] = response.xpath("//meta[@property='og:title']/@content").extract()[0]
         recipe['img'] = response.xpath("//meta[@property='og:image']/@content").extract()[0]
-        recipe['url'] = response.request.url.split('#')[0].split('&')[0]
+        recipe['url'] = response.request.url.split('#')[0].split('&')[0].split('?')[0]
         recipe['ings'] = ",".join([x.strip() for x in response.xpath("//div[@class='recipe__list recipe__list--ingredients']/ul/li/text()").extract()])
         if recipe['ings'] != '':
             yield recipe
@@ -61,7 +63,7 @@ class LiquorSpider(scrapy.Spider):
         recipe = RecipeSpidersItem()
         recipe['title'] = response.xpath("//meta[@property='og:title']/@content").extract()[0]
         recipe['img'] = response.xpath("//meta[@property='og:image']/@content").extract()[0]
-        recipe['url'] = response.request.url.split('#')[0].split('&')[0]
+        recipe['url'] = response.request.url.split('#')[0].split('&')[0].split('?')[0]
         recipe['ings'] = ",".join([x.strip() for x in response.xpath("//section[@class='comp section--ingredients section']/div/ul/li/text()").extract()])
         if recipe['ings'] != '':
             yield recipe
@@ -84,7 +86,7 @@ class BonAppetitSpider(scrapy.Spider):
         recipe = RecipeSpidersItem()
         recipe['title'] = response.xpath("//meta[@property='og:title']/@content").extract()[0]
         recipe['img'] = response.xpath("//meta[@property='og:image']/@content").extract()[0]
-        recipe['url'] = response.request.url.split('#')[0].split('&')[0]
+        recipe['url'] = response.request.url.split('#')[0].split('&')[0].split('?')[0]
         recipe['ings'] = ",".join([x.strip() for x in response.xpath("//div[@class='BaseWrap-sc-UABmB BaseText-fETRLB Description-dTsUqb hkSZSE kBLSTT gmvWnL']/text()").extract()])
         if recipe['ings'] != '':
             yield recipe
@@ -107,7 +109,7 @@ class EpicuriousSpider(scrapy.Spider):
         recipe = RecipeSpidersItem()
         recipe['title'] = response.xpath("//meta[@property='og:title']/@content").extract()[0]
         recipe['img'] = response.xpath("//meta[@property='og:image']/@content").extract()[0]
-        recipe['url'] = response.request.url.split('#')[0].split('&')[0]
+        recipe['url'] = response.request.url.split('#')[0].split('&')[0].split('?')[0]
         recipe['ings'] = ",".join([x.strip() for x in response.xpath("//div[@class='BaseWrap-sc-UABmB BaseText-fETRLB Description-dTsUqb hkSZSE kYypVx gmvWnL']/text()").extract()])
         if recipe['ings'] != '':
             yield recipe
@@ -130,7 +132,7 @@ class AllRecipesSpider(scrapy.Spider):
         recipe = RecipeSpidersItem()
         recipe['title'] = response.xpath("//meta[@property='og:title']/@content").extract()[0]
         recipe['img'] = response.xpath("//meta[@property='og:image']/@content").extract()[0]
-        recipe['url'] = response.request.url.split('#')[0].split('&')[0]
+        recipe['url'] = response.request.url.split('#')[0].split('&')[0].split('?')[0]
         recipe['ings'] = ",".join([x.strip() for x in response.xpath("//span[@class='ingredients-item-name elementFont__body']/text()").extract()])
         if recipe['ings'] != '':
             yield recipe
@@ -153,11 +155,36 @@ class SeriousEatsSpider(scrapy.Spider):
         recipe = RecipeSpidersItem()
         recipe['title'] = response.xpath("//meta[@property='og:title']/@content").extract()[0]
         recipe['img'] = response.xpath("//meta[@property='og:image']/@content").extract()[0]
-        recipe['url'] = response.request.url.split('#')[0].split('&')[0]
+        recipe['url'] = response.request.url.split('#')[0].split('&')[0].split('?')[0]
         recipe['ings'] = ",".join([x.strip() for x in response.xpath("//li[@class='simple-list__item js-checkbox-trigger ingredient text-passage']/text()").extract()])
         if recipe['ings'] != '':
             yield recipe
 
         anchors = [x for x in response.xpath("//a/@href").extract()]   
+        if anchors != []:
+            yield from response.follow_all(anchors, callback=self.parse)
+
+class SmittenKitchenSpider(scrapy.Spider):
+    name = "smittenkitchen"
+
+    start_urls = [
+        'https://smittenkitchen.com/recipes/'
+    ]
+    allowed_domains = [
+        'smittenkitchen.com'
+    ]
+    # custom_settings = {
+    #     'DEPTH_LIMIT' : 2
+    # }
+
+    def parse(self, response):
+        recipe = RecipeSpidersItem()
+        recipe['title'] = response.xpath("//meta[@property='og:title']/@content").extract()[0]
+        recipe['img'] = response.xpath("//meta[@property='og:image']/@content").extract()[0]
+        recipe['url'] = response.xpath("//link[@rel='canonical']/@href").get() #response.request.url.split('#')[0].split('&')[0].split('?')[0]
+        recipe['ings'] = ",".join([x.strip() for x in response.xpath("//li[@class='jetpack-recipe-ingredient p-ingredient ingredient']/text()").extract()])
+        if recipe['ings'] != '':
+            yield recipe
+        anchors = [x for x in response.xpath("//a/@href").extract() if '?' not in x and '#' not in x and '&' not in x]   
         if anchors != []:
             yield from response.follow_all(anchors, callback=self.parse)
