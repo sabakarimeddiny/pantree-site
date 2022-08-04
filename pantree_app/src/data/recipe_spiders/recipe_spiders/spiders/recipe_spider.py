@@ -1,12 +1,14 @@
 import scrapy
 from recipe_spiders.items import RecipeSpidersItem
 
-
 class NYTSpider(scrapy.Spider):
     name = "nyt"
 
     start_urls = [
         'https://cooking.nytimes.com/'
+    ]
+    allowed_domains = [
+        'cooking.nytimes.com'
     ]
 
     def parse(self, response):
@@ -28,6 +30,9 @@ class Food52Spider(scrapy.Spider):
     start_urls = [
         'https://food52.com/recipes/'
     ]
+    allowed_domains = [
+        'food52.com'
+    ]
 
     def parse(self, response):
         recipe = RecipeSpidersItem()
@@ -47,6 +52,9 @@ class LiquorSpider(scrapy.Spider):
 
     start_urls = [
         'https://www.liquor.com/recipes/'
+    ]
+    allowed_domains = [
+        'liquor.com'
     ]
 
     def parse(self, response):
@@ -68,6 +76,9 @@ class BonAppetitSpider(scrapy.Spider):
     start_urls = [
         'https://www.bonappetit.com/recipe/'
     ]
+    allowed_domains = [
+        'bonappetit.com'
+    ]
 
     def parse(self, response):
         recipe = RecipeSpidersItem()
@@ -87,6 +98,9 @@ class EpicuriousSpider(scrapy.Spider):
 
     start_urls = [
         'https://www.epicurious.com/recipes/'
+    ]
+    allowed_domains = [
+        'epicurious.com'
     ]
 
     def parse(self, response):
@@ -108,6 +122,9 @@ class AllRecipesSpider(scrapy.Spider):
     start_urls = [
         'https://www.allrecipes.com/'
     ]
+    allowed_domains = [
+        'allrecipes.com'
+    ]
 
     def parse(self, response):
         recipe = RecipeSpidersItem()
@@ -127,6 +144,9 @@ class SeriousEatsSpider(scrapy.Spider):
 
     start_urls = [
         'https://www.seriouseats.com/'
+    ]
+    allowed_domains = [
+        'seriouseats.com'
     ]
 
     def parse(self, response):
