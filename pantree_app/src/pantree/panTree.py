@@ -9,7 +9,8 @@ COMMON_INGS = []#['water', 'salt', 'kosher salt']
 class panTree:
 
     def __init__(self, ingredient_list = [], must_have_list = [], 
-                       db = os.path.join(os.path.dirname(os.path.abspath(__file__)),'..','data','recipeDB.db')):
+                       db = os.path.join(os.path.dirname(os.path.abspath(__file__)),'..','data','recipe_spiders','scrapedata.db')):
+                    #    db = os.path.join(os.path.dirname(os.path.abspath(__file__)),'..','data','recipeDB.db')):
         ingredient_list = set(ingredient_list)
         must_have_list = set(must_have_list)
         # for x in COMMON_INGS:
