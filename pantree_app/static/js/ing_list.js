@@ -2,35 +2,54 @@ $(document).ready(function() {
 
     // $('button[id=add_button]').click(function () {
 	// 	var toAdd=$('input[id=ingForm_ingredients]').val();
-	// 	$('<div class="removable-list-item"><i class="fas fa-ellipsis-v"></i><i class="fas fa-ellipsis-v"></i>&nbsp'+toAdd+'&nbsp<i class="fa-solid fa-xmark"></i></div>').appendTo('.list[id=ing]');
-    //     $('input[id=ingForm_ingredients]').val('');
-    // });
-
-    // $('button[id=require_button]').click(function () {
-	// 	var toAdd=$('input[id=ingForm_ingredients]').val();
-	// 	$('<div class="removable-list-item"><i class="fas fa-ellipsis-v"></i><i class="fas fa-ellipsis-v"></i>&nbsp'+toAdd+'&nbsp<i class="fa-solid fa-xmark"></i></div>').appendTo('.list[id=must_have]');
+	// 	$('<div class="removable-list-item"><i class="fas fa-ellipsis-v"></i><i class="fas fa-ellipsis-v"></i>&nbsp'+toAdd+'&nbsp<i class="fa-solid fa-xmark"></i></div>').draggable({ 
+    //         revert: 'invalid',
+    //         helper: 'clone',
+    //         refreshPositions: true,
+    //         opacity: 0.5,
+    //     }).appendTo('.list[id=ing]');
     //     $('input[id=ingForm_ingredients]').val('');
     // });
 
     $('button[id=add_button]').click(function () {
+        var added = false;
 		var toAdd=$('input[id=ingForm_ingredients]').val();
-		$('<div class="removable-list-item"><i class="fas fa-ellipsis-v"></i><i class="fas fa-ellipsis-v"></i>&nbsp'+toAdd+'&nbsp<i class="fa-solid fa-xmark"></i></div>').draggable({ 
+        var targetList=$('.list[id=ing]');
+		var ing = $('<div class="removable-list-item"><i class="fas fa-ellipsis-v"></i><i class="fas fa-ellipsis-v"></i>&nbsp'+toAdd+'&nbsp<i class="fa-solid fa-xmark"></i></div>').draggable({ 
             revert: 'invalid',
             helper: 'clone',
             refreshPositions: true,
             opacity: 0.5,
-        }).appendTo('.list[id=ing]');
+        })
+        $(".removable-list-item", targetList).each(function(){
+            if ($(this).text() > $(ing).text()) {
+                $(ing).insertBefore($(this)).fadeIn("fast");
+                added = true;
+                return false;
+            }
+        });
+        if(!added) $(ing).appendTo($(targetList)).fadeIn("fast");
         $('input[id=ingForm_ingredients]').val('');
     });
 
     $('button[id=require_button]').click(function () {
+		var added = false;
 		var toAdd=$('input[id=ingForm_ingredients]').val();
-		$('<div class="removable-list-item"><i class="fas fa-ellipsis-v"></i><i class="fas fa-ellipsis-v"></i>&nbsp'+toAdd+'&nbsp<i class="fa-solid fa-xmark"></i></div>').draggable({ 
+        var targetList=$('.list[id=must_have]');
+		var ing = $('<div class="removable-list-item"><i class="fas fa-ellipsis-v"></i><i class="fas fa-ellipsis-v"></i>&nbsp'+toAdd+'&nbsp<i class="fa-solid fa-xmark"></i></div>').draggable({ 
             revert: 'invalid',
             helper: 'clone',
             refreshPositions: true,
             opacity: 0.5,
-        }).appendTo('.list[id=must_have]');
+        })
+        $(".removable-list-item", targetList).each(function(){
+            if ($(this).text() > $(ing).text()) {
+                $(ing).insertBefore($(this)).fadeIn("fast");
+                added = true;
+                return false;
+            }
+        });
+        if(!added) $(ing).appendTo($(targetList)).fadeIn("fast");
         $('input[id=ingForm_ingredients]').val('');
     });
 
@@ -38,22 +57,6 @@ $(document).ready(function() {
         $('.list[id=ing] .removable-list-item').remove();
         $('.list[id=must_have] .removable-list-item').remove();
     });
-
-    // var timeout = false;
-    // $("input, .sidebar, button").on({
-    //     mouseenter: function () {
-    //         $('.sidebar').animate({left:'0%'}, 1000); 
-    //     },
-    //     mouseleave: function () {
-    //         timeout = setTimeout( function() { 
-    //             $('.sidebar').animate({left:'-19%'}, 1000);
-    //         }, 2000);
-    //     },
-    //     mouseover: function (){
-    //         clearTimeout(timeout)
-    //         $('.sidebar').animate({left:'0%'}, 1000); 
-    //     }
-    // });
 
     var timeout = false;
     $("form").on("submit", function () {
@@ -86,9 +89,23 @@ $(document).ready(function() {
         $('input[id=ingForm_ingredients]').val(array[i]);
         $('button[id=add_button]').click();
      });
-
+    
+     $(".ingredient").click(function(){
+        var element = $(this);
+        var added = false;
+        var targetList = $(this).parent().siblings(".ingredientList")[0];
+        $(this).fadeOut("fast", function() {
+            $(".ingredient", targetList).each(function(){
+                if ($(this).text() > $(element).text()) {
+                    $(element).insertBefore($(this)).fadeIn("fast");
+                    added = true;
+                    return false;
+                }
+            });
+            if(!added) $(element).appendTo($(targetList)).fadeIn("fast");
+        });
+    });
 });
 
 // $(document).on('click','.removable-list-item',function(){ $(this).remove(); });
 $(document).on('click','.fa-solid.fa-xmark',function(){ $(this).parent().remove(); });
-
