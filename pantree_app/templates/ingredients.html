@@ -44,7 +44,7 @@
     {{ form.must_have_ings.as_hidden }}
     <button id = "add_button" type="button" title="could also press enter">Add</button>
     <button id = "require_button" type="button" title="could also press shift+enter">Require</button>
-    <button id="clear" type="button" title="clears all the ingredients in the table below">Clear Below</button>
+    <button id="clear" type="button" title="clears all the ingredients in the table below">Clear</button>
     {% block savebutton %}
     {% if user.is_authenticated %}
         <input class="input" type="button" title="saves the ingredients below to your account" value="Save Below">

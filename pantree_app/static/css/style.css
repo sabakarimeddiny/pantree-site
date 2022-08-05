@@ -11,6 +11,10 @@ body {
   color: #bdc1c6;
 }
 
+input:hover{
+  border-color: #f2f2f2;
+}
+
 .sidebar{
   background-color: #444447;
   position: fixed;
@@ -117,11 +121,11 @@ label {
   display: table-cell;
 }
 
-input:hover {
+/* input:hover {
   background-color: #444447;
-  /* cursor: pointer; */
-  /* border-color: #444447; */
-}
+  border-color: white;
+  border-width: 5px;
+} */
 
 input[type=text] {
   padding: 7px;
@@ -234,6 +238,11 @@ button:hover{
   user-select: none;
 }
 
+.center form button:hover {
+  border-width: 1px;
+  border-color: #e8eaed;
+}
+
 .center form input[name=ingredients] {
   border-radius: 100px;
   border-width: 2px;
@@ -251,6 +260,7 @@ button:hover{
   width: 100%;
   max-width: 584px;
 }
+
 .center form input[name=submit] {
   background-color: #303134;
   border: 1px solid #303134;
@@ -283,6 +293,11 @@ button:hover{
   text-align: left;
   /* cursor: pointer; */
   user-select: none;
+}
+
+.center form input:hover {
+  border-width: 1px;
+  border-color: #e8eaed;
 }
 
 .center form a input {
