@@ -26,7 +26,7 @@ class recipeDB:
         self.ingredients = set({})
 
     def create_table(self):
-        self.cur.execute("CREATE VIRTUAL TABLE recipes USING FTS5(title, img, url, ingredients)")
+        self.cur.execute("CREATE VIRTUAL TABLE recipes USING FTS5(title, img, url, ingredients, tokenize='trigram'))")
     
     def insert(self, recipe):
         self.cur.execute("INSERT INTO recipes VALUES (?,?,?,?)",
