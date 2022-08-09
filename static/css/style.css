@@ -11,6 +11,10 @@ body {
   color: #bdc1c6;
 }
 
+input:hover{
+  border-color: #f2f2f2;
+}
+
 .sidebar{
   background-color: #444447;
   position: fixed;
@@ -79,9 +83,9 @@ body {
   top: 0px;
   margin-top: 4px;
   font-family: arial,sans-serif;
-  color: #bdc1c6;
-  background-color: #904e9cb6;
-  border-radius: 5px;
+  color: white;
+  background-color: dodgerblue;
+  border-radius: 100px;
   padding: 10px;
   margin-left: 5%;
   /* width: 85%; */
@@ -117,11 +121,11 @@ label {
   display: table-cell;
 }
 
-input:hover {
+/* input:hover {
   background-color: #444447;
-  /* cursor: pointer; */
-  /* border-color: #444447; */
-}
+  border-color: white;
+  border-width: 5px;
+} */
 
 input[type=text] {
   padding: 7px;
@@ -220,7 +224,7 @@ button:hover{
 .center form button {
   background-color: #303134;
   border: 1px solid #303134;
-  border-radius: 4px;
+  border-radius: 100px;
   color: #e8eaed;
   font-family: arial,sans-serif;
   font-size: 14px;
@@ -234,11 +238,16 @@ button:hover{
   user-select: none;
 }
 
+.center form button:hover {
+  border-width: 1px;
+  border-color: #e8eaed;
+}
+
 .center form input[name=ingredients] {
-  border-radius: 10px;
+  border-radius: 100px;
   border-width: 2px;
   border-color: #bdc1c635;
-  padding: 7px;
+  padding: 15px;
   display: flex;
   z-index: 3;
   height: 44px;
@@ -251,10 +260,11 @@ button:hover{
   width: 100%;
   max-width: 584px;
 }
+
 .center form input[name=submit] {
   background-color: #303134;
   border: 1px solid #303134;
-  border-radius: 4px;
+  border-radius: 100px;
   color: #e8eaed;
   font-family: arial,sans-serif;
   font-size: 14px;
@@ -263,7 +273,7 @@ button:hover{
   line-height: 27px;
   height: 36px;
   min-width: 54px;
-  text-align: left;
+  text-align: center;
   cursor: pointer;
   user-select: none;
 }
@@ -271,7 +281,7 @@ button:hover{
 .center form input {
   background-color: #303134;
   border: 1px solid #303134;
-  border-radius: 4px;
+  border-radius: 100px;
   color: #e8eaed;
   font-family: arial,sans-serif;
   font-size: 14px;
@@ -285,10 +295,15 @@ button:hover{
   user-select: none;
 }
 
+.center form input:hover {
+  border-width: 1px;
+  border-color: #e8eaed;
+}
+
 .center form a input {
   background-color: #303134;
   border: 1px solid #303134;
-  border-radius: 4px;
+  border-radius: 100px;
   color: #e8eaed;
   font-family: arial,sans-serif;
   font-size: 14px;
