@@ -15,7 +15,7 @@ class RecipeSpidersPipeline(object):
         # Possible we should be doing this in spider_open instead, but okay
         self.connection = sqlite3.connect('./scrapedata.db')
         self.cursor = self.connection.cursor()
-        self.cursor.execute("CREATE VIRTUAL TABLE IF NOT EXISTS recipes USING FTS5(title, img, url, ingredients, tokenize='trigram'))")
+        self.cursor.execute("CREATE VIRTUAL TABLE IF NOT EXISTS recipes USING FTS5(title, img, url, ingredients, tokenize='trigram')")
 
     # Take the item and put it in database - do not allow duplicates
     def process_item(self, item, spider):
