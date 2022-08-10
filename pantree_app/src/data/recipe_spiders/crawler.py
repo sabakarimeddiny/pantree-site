@@ -29,6 +29,7 @@ runner.crawl(AllRecipesSpider)
 runner.crawl(SeriousEatsSpider)
 runner.crawl(SmittenKitchenSpider)
 runner.crawl(FoodAndWine)
+runner.crawl(Delish)
 d = runner.join()
 d.addBoth(lambda _: reactor.stop())
 

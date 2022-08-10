@@ -210,3 +210,29 @@ class FoodAndWine(scrapy.Spider):
         anchors = [x for x in response.xpath("//a/@href").extract() if '?' not in x and '#' not in x and '&' not in x]   
         if anchors != []:
             yield from response.follow_all(anchors, callback=self.parse)
+
+class Delish(scrapy.Spider):
+    name = "delish"
+
+    start_urls = [
+        'https://www.delish.com/cooking/',
+        'https://www.delish.com/best-cocktail-recipes/'
+    ]
+    allowed_domains = [
+        'delish.com'
+    ]
+
+    def parse(self, response):
+        recipe = RecipeSpidersItem()
+        try:
+            recipe['title'] = response.xpath("//meta[@property='og:title']/@content").extract()[0]
+            recipe['img'] = response.xpath("//meta[@property='og:image']/@content").extract()[0]
+            recipe['url'] = response.xpath("//link[@rel='canonical']/@href").get() #response.request.url.split('#')[0].split('&')[0].split('?')[0]
+            recipe['ings'] = ",".join([x.strip() for x in response.xpath("//span[@class='ingredient-description']/p/text()").extract()])
+            if recipe['ings'] != '':
+                yield recipe
+        except IndexError:
+            pass
+        anchors = [x for x in response.xpath("//a/@href").extract() if '?' not in x and '#' not in x and '&' not in x]   
+        if anchors != []:
+            yield from response.follow_all(anchors, callback=self.parse)
