@@ -14,42 +14,54 @@ $(document).ready(function() {
     $('button[id=add_button]').click(function () {
         var added = false;
 		var toAdd=$('input[id=ingForm_ingredients]').val();
+        if(toAdd == ""){
+            return;
+        }
         var targetList=$('.list[id=ing]');
-		var ing = $('<div class="removable-list-item"><i class="fas fa-ellipsis-v"></i><i class="fas fa-ellipsis-v"></i>&nbsp'+toAdd+'&nbsp<i class="fa-solid fa-xmark"></i></div>').draggable({ 
-            revert: 'invalid',
-            helper: 'clone',
-            refreshPositions: true,
-            opacity: 0.5,
-        })
-        $(".removable-list-item", targetList).each(function(){
-            if ($(this).text() > $(ing).text()) {
-                $(ing).insertBefore($(this)).fadeIn("fast");
-                added = true;
-                return false;
-            }
+        var toAdd_array = toAdd.split(',')
+        $.each(toAdd_array,function(i) {
+            var ing = $('<div class="removable-list-item"><i class="fas fa-ellipsis-v"></i><i class="fas fa-ellipsis-v"></i>&nbsp'+toAdd_array[i]+'&nbsp<i class="fa-solid fa-xmark"></i></div>').draggable({ 
+                revert: 'invalid',
+                helper: 'clone',
+                refreshPositions: true,
+                opacity: 0.5,
+            })
+            $(".removable-list-item", targetList).each(function(){
+                if ($(this).text() > $(ing).text()) {
+                    $(ing).insertBefore($(this)).fadeIn("fast");
+                    added = true;
+                    return false;
+                }
+            });
+            if(!added) $(ing).appendTo($(targetList)).fadeIn("fast");
         });
-        if(!added) $(ing).appendTo($(targetList)).fadeIn("fast");
         $('input[id=ingForm_ingredients]').val('');
     });
 
     $('button[id=require_button]').click(function () {
 		var added = false;
 		var toAdd=$('input[id=ingForm_ingredients]').val();
+        if(toAdd == ""){
+            return;
+        }
         var targetList=$('.list[id=must_have]');
-		var ing = $('<div class="removable-list-item"><i class="fas fa-ellipsis-v"></i><i class="fas fa-ellipsis-v"></i>&nbsp'+toAdd+'&nbsp<i class="fa-solid fa-xmark"></i></div>').draggable({ 
-            revert: 'invalid',
-            helper: 'clone',
-            refreshPositions: true,
-            opacity: 0.5,
-        })
-        $(".removable-list-item", targetList).each(function(){
-            if ($(this).text() > $(ing).text()) {
-                $(ing).insertBefore($(this)).fadeIn("fast");
-                added = true;
-                return false;
-            }
+        var toAdd_array = toAdd.split(',')
+        $.each(toAdd_array,function(i) {
+            var ing = $('<div class="removable-list-item"><i class="fas fa-ellipsis-v"></i><i class="fas fa-ellipsis-v"></i>&nbsp'+toAdd_array[i]+'&nbsp<i class="fa-solid fa-xmark"></i></div>').draggable({ 
+                revert: 'invalid',
+                helper: 'clone',
+                refreshPositions: true,
+                opacity: 0.5,
+            })
+            $(".removable-list-item", targetList).each(function(){
+                if ($(this).text() > $(ing).text()) {
+                    $(ing).insertBefore($(this)).fadeIn("fast");
+                    added = true;
+                    return false;
+                }
+            });
+            if(!added) $(ing).appendTo($(targetList)).fadeIn("fast");
         });
-        if(!added) $(ing).appendTo($(targetList)).fadeIn("fast");
         $('input[id=ingForm_ingredients]').val('');
     });
 
