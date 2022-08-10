@@ -188,3 +188,25 @@ class SmittenKitchenSpider(scrapy.Spider):
         anchors = [x for x in response.xpath("//a/@href").extract() if '?' not in x and '#' not in x and '&' not in x]   
         if anchors != []:
             yield from response.follow_all(anchors, callback=self.parse)
+
+class FoodAndWine(scrapy.Spider):
+    name = "foodandwine"
+
+    start_urls = [
+        'https://www.foodandwine.com/recipes/'
+    ]
+    allowed_domains = [
+        'foodandwine.com'
+    ]
+
+    def parse(self, response):
+        recipe = RecipeSpidersItem()
+        recipe['title'] = response.xpath("//meta[@property='og:title']/@content").extract()[0]
+        recipe['img'] = response.xpath("//meta[@property='og:image']/@content").extract()[0]
+        recipe['url'] = response.xpath("//link[@rel='canonical']/@href").get() #response.request.url.split('#')[0].split('&')[0].split('?')[0]
+        recipe['ings'] = ",".join([x.strip() for x in response.xpath("//span[@class='ingredients-item-name elementFont__body']/text()").extract()])
+        if recipe['ings'] != '':
+            yield recipe
+        anchors = [x for x in response.xpath("//a/@href").extract() if '?' not in x and '#' not in x and '&' not in x]   
+        if anchors != []:
+            yield from response.follow_all(anchors, callback=self.parse)
