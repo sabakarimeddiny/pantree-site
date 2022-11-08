@@ -53,7 +53,7 @@ class LiquorSpider(scrapy.Spider):
     name = "liquor"
 
     start_urls = [
-        'https://www.liquor.com/recipes/'
+        'https://www.liquor.com/recipes/',
     ]
     allowed_domains = [
         'liquor.com'
@@ -65,6 +65,9 @@ class LiquorSpider(scrapy.Spider):
         recipe['img'] = response.xpath("//meta[@property='og:image']/@content").extract()[0]
         recipe['url'] = response.request.url.split('#')[0].split('&')[0].split('?')[0]
         recipe['ings'] = ",".join([x.strip() for x in response.xpath("//section[@class='comp section--ingredients section']/div/ul/li/text()").extract()])
+        if recipe['ings'] == '':
+            recipe['ings'] = [x.strip() for x in response.xpath("//span[@data-ingredient-name]/text()").extract()]
+        
         if recipe['ings'] != '':
             yield recipe
 
